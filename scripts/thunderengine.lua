@@ -19,6 +19,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
+IncludeDir["GLFW"] = "../vendor/glfw/include"
+
+group "Dependencies"
+	include "glfw.lua"
 
 group ""
 
@@ -44,11 +48,13 @@ project "ThunderEngine"
 	includedirs 
 	{
 		"../src",
+		"%{IncludeDir.GLFW}"
 	}
 
 	links 
 	{
 		"opengl32.lib",
+		"glfw"
 	}
 
 	filter "system:windows"
@@ -88,6 +94,7 @@ project "Sandbox2D"
 	includedirs
 	{
 		"../src",
+		"%{IncludeDir.GLFW}"
 	}
 
 	links
