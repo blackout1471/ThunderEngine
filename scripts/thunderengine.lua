@@ -36,8 +36,8 @@ project "ThunderEngine"
 	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "fepch.h"
-	pchsource "../src/fepch.cpp"
+	pchheader "tepch.h"
+	pchsource "../src/tepch.cpp"
 
 	files 
 	{
