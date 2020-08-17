@@ -22,6 +22,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "../vendor/glfw/include"
 IncludeDir["Glad"] = "../vendor/glad/include"
 IncludeDir["glm"] = "../vendor/glm"
+IncludeDir["stb"] = "../vendor/stb"
 
 group "Dependencies"
 	include "glfw.lua"
@@ -48,6 +49,8 @@ project "ThunderEngine"
 		"../src/**.cpp",
 		"../vendor/glm/glm/**.hpp",
 		"../vendor/glm/glm/**.inl",
+		"../vendor/stb/**.h",
+		"../vendor/stb/**.cpp"
 	}
 
 	includedirs 
@@ -55,7 +58,8 @@ project "ThunderEngine"
 		"../src",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.stb}"
 	}
 
 	links 
@@ -105,7 +109,8 @@ project "Sandbox2D"
 		"../vendor",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.stb}"
 	}
 
 	links
