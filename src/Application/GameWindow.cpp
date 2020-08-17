@@ -2,11 +2,19 @@
 #include "GameWindow.h"
 
 namespace Application {
+
+	bool GameWindow::s_IsInitialized = false;
+
 	void GameWindow::InitializeLibrary()
 	{
+		if (!s_IsInitialized)
+		{
+			glfwInit();
+			GameWindow::s_IsInitialized = true;
+		}
 	}
 	GameWindow::GameWindow() {
-
+		InitializeLibrary();
 	}
 	bool GameWindow::CreateWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share) {
 		m_Window = glfwCreateWindow(width, height, title, monitor, share);
