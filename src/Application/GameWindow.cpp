@@ -53,6 +53,18 @@ namespace Application {
 		glfwSetWindowTitle(m_Window, title);
 		m_Title = title;
 	}
+	char* GameWindow::GetWindowTitle()
+	{
+		return m_Title;
+	}
+	int GameWindow::GetWindowHeight()
+	{
+		return m_Height;
+	}
+	int GameWindow::GetWindowWidth()
+	{
+		return m_Width;
+	}
 	GameWindow::~GameWindow() {
 		delete m_Window;
 		delete m_Title;

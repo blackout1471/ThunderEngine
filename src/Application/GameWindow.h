@@ -21,6 +21,10 @@ namespace Application {
 		void PollEvents();
 		void SetWindowSize(int width, int height);
 		void SetWindowTitle(char* title);
+		char* GetWindowTitle();
+		int GetWindowHeight();
+		int GetWindowWidth();
+
 	};
 }
 
