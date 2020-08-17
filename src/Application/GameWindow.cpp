@@ -1,80 +1,82 @@
 #include "tepch.h"
 #include "GameWindow.h"
 
-namespace Application {
+namespace ThunderEngine {
+	namespace Application {
 
-	bool GameWindow::s_IsInitialized = false;
+		bool GameWindow::s_IsInitialized = false;
 
-	void GameWindow::InitializeLibrary()
-	{
-		if (!s_IsInitialized)
+		void GameWindow::InitializeLibrary()
 		{
-			glfwInit();
-			GameWindow::s_IsInitialized = true;
+			if (!s_IsInitialized)
+			{
+				glfwInit();
+				GameWindow::s_IsInitialized = true;
+			}
 		}
-	}
-	GameWindow::GameWindow() {
-		InitializeLibrary();
-	}
-	bool GameWindow::CreateWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share) {
-		m_Window = glfwCreateWindow(width, height, title, monitor, share);
-		m_Width = width;
-		m_Height = height;
-		m_Title = title;
-		if (!m_Window)
-			return false;
+		GameWindow::GameWindow() {
+			InitializeLibrary();
+		}
+		bool GameWindow::CreateWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share) {
+			m_Window = glfwCreateWindow(width, height, title, monitor, share);
+			m_Width = width;
+			m_Height = height;
+			m_Title = title;
+			if (!m_Window)
+				return false;
 
-		return true;
-	}
-	void GameWindow::MakeContextCurrent()
-	{
-		glfwMakeContextCurrent(m_Window);
-	}
-	bool GameWindow::ShouldWindowClose()
-	{
-		return glfwWindowShouldClose(m_Window);
-	}
-	void GameWindow::SwapBuffers()
-	{
-		glfwSwapBuffers(m_Window);
-	}
-	void GameWindow::PollEvents()
-	{
-		glfwPollEvents();
-	}
-	void GameWindow::SetWindowSize(int width, int height)
-	{
-		glfwSetWindowSize(m_Window, width, height);
-		m_Width = width;
-		m_Height = height;
-	}
-	void GameWindow::SetWindowTitle(char* title)
-	{
-		glfwSetWindowTitle(m_Window, title);
-		m_Title = title;
-	}
-	char* GameWindow::GetWindowTitle()
-	{
-		return m_Title;
-	}
-	int GameWindow::GetWindowHeight()
-	{
-		return m_Height;
-	}
-	int GameWindow::GetWindowWidth()
-	{
-		return m_Width;
-	}
-	void GameWindow::CloseWindow()
-	{
-		glfwDestroyWindow(m_Window);
-	}
-	void GameWindow::Terminate()
-	{
-		glfwTerminate();
-	}
-	GameWindow::~GameWindow() {
-		delete m_Window;
-		delete m_Title;
+			return true;
+		}
+		void GameWindow::MakeContextCurrent()
+		{
+			glfwMakeContextCurrent(m_Window);
+		}
+		bool GameWindow::ShouldWindowClose()
+		{
+			return glfwWindowShouldClose(m_Window);
+		}
+		void GameWindow::SwapBuffers()
+		{
+			glfwSwapBuffers(m_Window);
+		}
+		void GameWindow::PollEvents()
+		{
+			glfwPollEvents();
+		}
+		void GameWindow::SetWindowSize(int width, int height)
+		{
+			glfwSetWindowSize(m_Window, width, height);
+			m_Width = width;
+			m_Height = height;
+		}
+		void GameWindow::SetWindowTitle(char* title)
+		{
+			glfwSetWindowTitle(m_Window, title);
+			m_Title = title;
+		}
+		char* GameWindow::GetWindowTitle()
+		{
+			return m_Title;
+		}
+		int GameWindow::GetWindowHeight()
+		{
+			return m_Height;
+		}
+		int GameWindow::GetWindowWidth()
+		{
+			return m_Width;
+		}
+		void GameWindow::CloseWindow()
+		{
+			glfwDestroyWindow(m_Window);
+		}
+		void GameWindow::Terminate()
+		{
+			glfwTerminate();
+		}
+		GameWindow::~GameWindow() {
+			delete m_Window;
+			delete m_Title;
+		}
 	}
 }
