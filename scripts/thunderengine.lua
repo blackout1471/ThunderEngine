@@ -20,9 +20,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "../vendor/glfw/include"
+IncludeDir["Glad"] = "../vendor/glad/include"
+IncludeDir["glm"] = "../vendor/glm"
 
 group "Dependencies"
 	include "glfw.lua"
+	include "glad.lua"
 
 group ""
 
@@ -43,18 +46,23 @@ project "ThunderEngine"
 	{
 		"../src/**.h",	
 		"../src/**.cpp",
+		"../vendor/glm/glm/**.hpp",
+		"../vendor/glm/glm/**.inl",
 	}
 
 	includedirs 
 	{
 		"../src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links 
 	{
 		"opengl32.lib",
-		"glfw"
+		"glfw",
+		"glad"
 	}
 
 	filter "system:windows"
@@ -94,7 +102,10 @@ project "Sandbox2D"
 	includedirs
 	{
 		"../src",
-		"%{IncludeDir.GLFW}"
+		"../vendor",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.glad}"
 	}
 
 	links
