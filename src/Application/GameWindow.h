@@ -6,6 +6,7 @@ namespace Application {
 	private:
 		static bool s_IsInitialized;
 		static void InitializeLibrary();
+		static void Terminate();
 	private:
 		GLFWwindow* m_Window;
 		int m_Width;
@@ -24,7 +25,7 @@ namespace Application {
 		char* GetWindowTitle();
 		int GetWindowHeight();
 		int GetWindowWidth();
-
+		void CloseWindow();
 	};
 }
 

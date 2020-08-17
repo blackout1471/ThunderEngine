@@ -65,6 +65,14 @@ namespace Application {
 	{
 		return m_Width;
 	}
+	void GameWindow::CloseWindow()
+	{
+		glfwDestroyWindow(m_Window);
+	}
+	void GameWindow::Terminate()
+	{
+		glfwTerminate();
+	}
 	GameWindow::~GameWindow() {
 		delete m_Window;
 		delete m_Title;
