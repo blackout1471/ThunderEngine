@@ -8,7 +8,7 @@ int main(void)
 {
     // Create new game window
     ThunderEngine::Application::GameWindow* gameWindow = new ThunderEngine::Application::GameWindow();
-    gameWindow->CreateWindow(640,320,"Yes", NULL, NULL);
+    gameWindow->CreateGameWindow(640,320,"Yes", NULL, NULL);
     gameWindow->MakeContextCurrent(); // Make it the target to draw to
 
     // Create the API, either CPU | Opengl | DirectX

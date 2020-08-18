@@ -1,5 +1,6 @@
 #include "tepch.h"
 #include "GameWindow.h"
+#include "Log.h"
 
 namespace ThunderEngine {
 	namespace Application {
@@ -18,7 +19,7 @@ namespace ThunderEngine {
 			InitializeLibrary();
 		}
 
-		bool GameWindow::CreateWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share) {
+		bool GameWindow::CreateGameWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share) {
 			m_Window = glfwCreateWindow(width, height, title, monitor, share);
 			m_Width = width;
 			m_Height = height;

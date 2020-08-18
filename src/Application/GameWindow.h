@@ -17,7 +17,7 @@ namespace ThunderEngine {
 		public:
 			GameWindow();
 			~GameWindow();
-			bool CreateWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share);
+			bool CreateGameWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share);
 			void MakeContextCurrent();
 			bool ShouldWindowClose();
 			void SwapBuffers();
