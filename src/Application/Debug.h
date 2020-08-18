@@ -3,7 +3,7 @@ namespace ThunderEngine {
 	namespace Application {
 		class Debug {
 		public:
-			void Write(char* message);
+			static void Write(char* message);
 		};
 	}
 }
