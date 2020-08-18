@@ -1,7 +1,8 @@
 #pragma once
 #include <memory>
+
 #include "RenderCommands.h"
-#include "OpenGL/GLRenderCommands.h"
+#include "Platform/OpenGL/GLRenderCommands.h"
 
 namespace ThunderEngine {
 	enum class RenderVendor {

@@ -14,9 +14,10 @@ namespace ThunderEngine {
 				GameWindow::s_IsInitialized = true;
 			}
 		}
-		GameWindow::GameWindow() {
+		GameWindow::GameWindow() : m_Width(0), m_Height(0), m_Title(nullptr), m_Window(nullptr) {
 			InitializeLibrary();
 		}
+
 		bool GameWindow::CreateWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share) {
 			m_Window = glfwCreateWindow(width, height, title, monitor, share);
 			m_Width = width;

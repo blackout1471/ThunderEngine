@@ -109,7 +109,6 @@ project "Sandbox2D"
 		"../vendor",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.glad}",
 		"%{IncludeDir.stb}"
 	}
 
