@@ -3,7 +3,7 @@
 
 namespace ThunderEngine {
 	namespace OpenGl {
-		class GLShader : public Shader
+		class GLShader : public Graphics::Shader
 		{
 		private:
 			unsigned int m_Id;

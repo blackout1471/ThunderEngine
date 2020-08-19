@@ -6,7 +6,7 @@ namespace ThunderEngine {
 	namespace Logger {
 		ConsoleLogger::ConsoleLogger() : m_ConsoleId(0), m_ConsoleHandle(0), m_InfoColor(2), m_WarningColor(6), m_ErrorColor(4)
 		{
-
+			ConsoleLogger::Open();
 		}
 
 		void ConsoleLogger::Open()
@@ -114,22 +114,22 @@ namespace ThunderEngine {
 		}
 
 
-		void ConsoleLogger::WriteInfo(const std::string message)
+		void ConsoleLogger::WriteInfo(const std::string message, std::string args, const char splitter)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_InfoColor);
-			std::cout << message << std::endl;
+			ConsoleLogger::Write(message, args, splitter);
 		}
 
-		void ConsoleLogger::WriteWarning(const std::string message)
+		void ConsoleLogger::WriteWarning(const std::string message, std::string args, const char splitter)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_WarningColor);
-			std::cout << message << std::endl;
+			ConsoleLogger::Write(message, args, splitter);
 		}
 
-		void ConsoleLogger::WriteError(const std::string message)
+		void ConsoleLogger::WriteError(const std::string message, std::string args, const char splitter)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_ErrorColor);
-			std::cout << message << std::endl;
+			ConsoleLogger::Write(message, args, splitter);
 		}
 
 	}

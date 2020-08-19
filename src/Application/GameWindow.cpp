@@ -29,53 +29,65 @@ namespace ThunderEngine {
 
 			return true;
 		}
+
 		void GameWindow::MakeContextCurrent()
 		{
 			glfwMakeContextCurrent(m_Window);
 		}
+
 		bool GameWindow::ShouldWindowClose()
 		{
 			return glfwWindowShouldClose(m_Window);
 		}
+
 		void GameWindow::SwapBuffers()
 		{
 			glfwSwapBuffers(m_Window);
 		}
+
 		void GameWindow::PollEvents()
 		{
 			glfwPollEvents();
 		}
+
 		void GameWindow::SetWindowSize(int width, int height)
 		{
 			glfwSetWindowSize(m_Window, width, height);
 			m_Width = width;
 			m_Height = height;
 		}
+
 		void GameWindow::SetWindowTitle(char* title)
 		{
 			glfwSetWindowTitle(m_Window, title);
 			m_Title = title;
 		}
+
 		char* GameWindow::GetWindowTitle()
 		{
 			return m_Title;
 		}
+
 		int GameWindow::GetWindowHeight()
 		{
 			return m_Height;
 		}
+
 		int GameWindow::GetWindowWidth()
 		{
 			return m_Width;
 		}
+
 		void GameWindow::CloseWindow()
 		{
 			glfwDestroyWindow(m_Window);
 		}
+
 		void GameWindow::Terminate()
 		{
 			glfwTerminate();
 		}
+
 		GameWindow::~GameWindow() {
 			delete m_Window;
 			delete m_Title;

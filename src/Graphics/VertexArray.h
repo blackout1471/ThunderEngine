@@ -1,11 +1,21 @@
 #pragma once
-#include "ShaderType.h"
+#include "RenderProperties.h"
+#include "IndexBuffer.h"
+#include "VertexBuffer.h"
 
 namespace ThunderEngine {
-	class VertexArray {
-	public:
-		virtual void InsertAttributePointer(unsigned int index, unsigned int size, ShaderType type, bool normalised, unsigned int stride, void* ptr) = 0;
-		virtual void EnablePointer(unsigned int location) = 0;
-		virtual void BindBuffer() = 0;
-	};
+	namespace Graphics {
+		class VertexArray {
+		public:
+			virtual void Bind() = 0;
+			virtual void Delete() = 0;
+
+			virtual void SetVertexBuffer(const VertexBuffer* vertexBuffer) = 0;
+			virtual void SetIndexBuffer(IndexBuffer* const indexBuffer) = 0;
+
+
+			virtual void DrawArrays(RenderPrimitives primitive, const unsigned int offset, const unsigned int count) = 0;
+			virtual void DrawIndicies(const RenderPrimitives primitive, const unsigned int count) = 0;
+		};
+	}
 }

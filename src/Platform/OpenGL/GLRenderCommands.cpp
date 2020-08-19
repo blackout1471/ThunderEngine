@@ -2,14 +2,17 @@
 #include "GLRenderCommands.h"
 #include "GLVertexArray.h"
 #include "GLVertexBuffer.h"
+#include "GLIndexBuffer.h"
 #include "GLShader.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
+#include <Utils/FileUtils.h>
 
 namespace ThunderEngine {
     namespace OpenGl {
+
+		GLRenderCommands::GLRenderCommands() {}
 
         void OpenGLMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userparam) {
             std::cout << "Error: " << message << std::endl;
@@ -35,34 +38,71 @@ namespace ThunderEngine {
             return true;
         }
 
-        void GLRenderCommands::ClearColor(float r, float g, float b, float a)
-        {
-            glClearColor(r, g, b, a);
-        }
+		void GLRenderCommands::SetViewport(int _width, int _height)
+		{
+			glViewport(0, 0, _width, _height);
+		}
 
-        void GLRenderCommands::ClearColorBit()
-        {
-            glClear(GL_COLOR_BUFFER_BIT);
-        }
+		void GLRenderCommands::ClearColor(float r, float g, float b, float a)
+		{
+			glClearColor(r, g, b, a);
+		}
 
-        VertexArray* GLRenderCommands::CreateVertexArray()
-        {
-            return new GLVertexArray();
-        }
+		void GLRenderCommands::SetBlend(bool _enable)
+		{
+			if (_enable)
+			{
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			}
+			else
+			{
+				glDisable(GL_BLEND);
+			}
+		}
 
-        VertexBuffer* GLRenderCommands::CreateVertexBuffer()
-        {
-            return new GLVertexBuffer();
-        }
+		Graphics::VertexArray* GLRenderCommands::CreateVertexArray()
+		{
+			return new GLVertexArray();
+		}
 
-        void GLRenderCommands::DrawArray(unsigned int count)
-        {
-            glDrawArrays(GL_TRIANGLES, 0, count);
-        }
+		Graphics::VertexBuffer* GLRenderCommands::CreateVertexBuffer(const unsigned int size)
+		{
+			GLVertexBuffer* _p = new GLVertexBuffer();
+			_p->Bind();
+			_p->SetBufferData(size, NULL, Graphics::BufferUsage::Dynamic_Draw);
+			return _p;
+		}
 
-        Shader* GLRenderCommands::CreateShader(const char* vertexShaderSource, const char* fragmentShaderSource)
-        {
-            return new GLShader(vertexShaderSource, fragmentShaderSource);
-        }
+		Graphics::VertexBuffer* GLRenderCommands::CreateVertexBuffer(const void* data)
+		{
+			GLVertexBuffer* _p = new GLVertexBuffer();
+			_p->Bind();
+			_p->SetBufferData(sizeof(data), data, Graphics::BufferUsage::Static_Draw);
+			return _p;
+		}
+
+		Graphics::IndexBuffer* GLRenderCommands::CreateIndexBuffer(const unsigned int size)
+		{
+			return new GLIndexBuffer(size);
+		}
+
+		Graphics::Shader* GLRenderCommands::CreateShader(const std::string vertexPath, const std::string fragmentPath)
+		{
+			std::string vShaderText = Utils::FileUtils::ReadFileContent(vertexPath);
+			std::string fShaderText = Utils::FileUtils::ReadFileContent(fragmentPath);
+
+			return new GLShader(vShaderText.c_str(), fShaderText.c_str());
+		}
+
+		void GLRenderCommands::ClearColorBit()
+		{
+			glClear(GL_COLOR_BUFFER_BIT);
+		}
+
+		Graphics::Shader* GLRenderCommands::CreateShader(const char* vertexSource, const char* fragmentSource)
+		{
+			return new GLShader(vertexSource, fragmentSource);
+		}
     }
 }

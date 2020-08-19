@@ -1,7 +1,9 @@
 #include "tepch.h"
 #include "Game.h"
-#include "../src/Graphics/RenderApi.h"
+#include <Graphics/RenderApi.h>
 #include "Core/Core.h"
+#include <Graphics/Vertice.h>
+#include <Graphics/Shaders/OpenGlShaders.h>
 
 namespace ThunderEngine {
 
@@ -18,62 +20,120 @@ namespace ThunderEngine {
 	void Game::Run()
 	{
         // Create game window
-        TE_ASSERT(m_WindowInstance->CreateGameWindow(800, 600, "yes", nullptr, nullptr), "Window couldn't be created");
+        TE_ASSERT(m_WindowInstance->CreateGameWindow(800, 600, "yes", nullptr, nullptr), "Window couldn't be created", "", '@');
+        TE_LOG_INFO("Window created Width: {0} Height: {1}", std::to_string(m_WindowInstance->GetWindowWidth()) + '@' + std::to_string(m_WindowInstance->GetWindowHeight()), '@');
 
         m_WindowInstance->MakeContextCurrent(); // Make it the target to draw to
 
         // Create the API, either CPU | Opengl | DirectX
-        ThunderEngine::RenderApi::CreateApi(ThunderEngine::RenderVendor::OpenGL);
-        ThunderEngine::RenderApi::GetApi()->Init();
+        Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
+        Graphics::RenderApi::GetApi()->Init();
 
-        // Shader code
-        const char* vertexShaderSource = "#version 330 core\n"
-            "layout (location = 0) in vec3 aPos;\n"
-            "void main()\n"
-            "{\n"
-            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-            "}\0";
+        // The vertices first square
+        Graphics::Vertex2D* v1 = new Graphics::Vertex2D();
+        Graphics::Vertex2D* v2 = new Graphics::Vertex2D();
+        Graphics::Vertex2D* v3 = new Graphics::Vertex2D();
+        Graphics::Vertex2D* v4 = new Graphics::Vertex2D();
 
-        const char* fragmentShaderSource = "#version 330 core\n"
-            "out vec4 FragColor;\n"
-            "void main()\n"
-            "{\n"
-            "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-            "}\n\0";
+        v1->Vertice = glm::vec3(-0.2f, 0.5f, 0.0f);
+        v2->Vertice = glm::vec3(-0.2f, -0.5f, 0.0f);
+        v3->Vertice = glm::vec3(-0.5f, -0.5f, 0.0f);
+        v4->Vertice = glm::vec3(-0.5f, 0.5f, 0.0f);
 
-        // The vertices
-        float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // color
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
-        };
+        v1->Color = glm::vec4(1.f, 0.f, 0.0f, 1.f);
+        v2->Color = glm::vec4(0.f, 1.f, 0.0f, 1.f);
+        v3->Color = glm::vec4(0.f, 0.f, 1.f, 1.f);
+        v4->Color = glm::vec4(1.f, 1.f, 1.f, 1.f);
+
+        Graphics::Vertex2D* v5 = new Graphics::Vertex2D();
+        Graphics::Vertex2D* v6 = new Graphics::Vertex2D();
+        Graphics::Vertex2D* v7 = new Graphics::Vertex2D();
+        Graphics::Vertex2D* v8 = new Graphics::Vertex2D();
+
+        v5->Vertice = glm::vec3(0.8f, 0.5f, 0.0f);
+        v6->Vertice = glm::vec3(0.8f, -0.5f, 0.0f);
+        v7->Vertice = glm::vec3(0.2f, -0.5f, 0.0f);
+        v8->Vertice = glm::vec3(0.2f, 0.5f, 0.0f);
+
+        v5->Color = glm::vec4(0.5f, 0.5f, 0.0f, 1.f);
+        v6->Color = glm::vec4(0.5f, 0.5f, 0.0f, 1.f);
+        v7->Color = glm::vec4(0.5f, 0.5f, 0.0f, 1.f);
+        v8->Color = glm::vec4(0.5f, 0.5f, 0.0f, 1.f);
+
+        // Create the different buffers 
+        Graphics::VertexArray* m_Vao = Graphics::RenderApi::GetApi()->CreateVertexArray();
+        Graphics::VertexBuffer* m_Vbo = Graphics::RenderApi::GetApi()->CreateVertexBuffer(1000);
+        Graphics::IndexBuffer* m_Ibo = Graphics::RenderApi::GetApi()->CreateIndexBuffer(1000 * 6);
+
+        // Bind the vertex array and the vertex buffer
+        m_Vao->Bind();
+        m_Vbo->Bind();
+
+        // Set layout for the shader
+        m_Vbo->SetLayout({
+            {0, 3, Graphics::ShaderType::Float, false},
+            {1, 4, Graphics::ShaderType::Float, false},
+            });
+
+        // Set the buffers for the array
+        m_Vao->SetVertexBuffer(m_Vbo);
+        m_Vao->SetIndexBuffer(m_Ibo);
+
+        // Set data for vertex buffer
+        Graphics::Vertex2D* m_BufferPointer = (Graphics::Vertex2D*)m_Vbo->GetPointer(); // Get pointer to buffer
         
+        m_BufferPointer->Vertice = v1->Vertice;
+        m_BufferPointer->Color  = v1->Color;
+        m_BufferPointer++;
 
-        // The VertexArray obj, almost like a list for vertexBuffers
-        ThunderEngine::VertexArray* vao = ThunderEngine::RenderApi::GetApi()->CreateVertexArray();
-        vao->BindBuffer();
+        m_BufferPointer->Vertice = v2->Vertice;
+        m_BufferPointer->Color = v2->Color;
+        m_BufferPointer++;
 
-        // Vertex buffer stores vertice data, and sends it to the shader
-        ThunderEngine::VertexBuffer* vbo = ThunderEngine::RenderApi::GetApi()->CreateVertexBuffer();
-        vbo->BindBuffer();
-        vbo->SetData(vertices, sizeof(vertices));
+        m_BufferPointer->Vertice = v3->Vertice;
+        m_BufferPointer->Color = v3->Color;
+        m_BufferPointer++;
 
-        // What attributes to enable in the shader, and how the data looks
-        vao->InsertAttributePointer(0, 3, ThunderEngine::ShaderType::Float, false, 3 * sizeof(float), (void*)0);
-        vao->EnablePointer(0);
+        m_BufferPointer->Vertice = v4->Vertice;
+        m_BufferPointer->Color = v4->Color;
+        m_BufferPointer++;
+
+        m_BufferPointer->Vertice = v5->Vertice;
+        m_BufferPointer->Color = v5->Color;
+        m_BufferPointer++;
+
+        m_BufferPointer->Vertice = v6->Vertice;
+        m_BufferPointer->Color = v6->Color;
+        m_BufferPointer++;
+
+        m_BufferPointer->Vertice = v7->Vertice;
+        m_BufferPointer->Color = v7->Color;
+        m_BufferPointer++;
+
+        m_BufferPointer->Vertice = v8->Vertice;
+        m_BufferPointer->Color = v8->Color;
+        m_BufferPointer++;
+
+        m_Vbo->ReleasePointer(); // release the buffer pointer
 
         // The shader compiled
-        ThunderEngine::Shader* shader = ThunderEngine::RenderApi::GetApi()->CreateShader(vertexShaderSource, fragmentShaderSource);
+        Graphics::Shader* shader = Graphics::RenderApi::GetApi()->CreateShader(
+            Shaders::OpenGlShaders::Shader2DVertex, 
+            Shaders::OpenGlShaders::Shader2DFragment
+        );
 
         while (!m_WindowInstance->ShouldWindowClose())
         {
             // Clear color buffer and insert blue data
-            ThunderEngine::RenderApi::GetApi()->ClearColorBit();
-            ThunderEngine::RenderApi::GetApi()->ClearColor(.0, .0, .8, 1.0);
+            Graphics::RenderApi::GetApi()->ClearColorBit();
+            Graphics::RenderApi::GetApi()->ClearColor(.0, .0, .8, 1.0);
 
             // Bind shader and send data through, to draw
             shader->Bind();
-            ThunderEngine::RenderApi::GetApi()->DrawArray(3);
+
+            // Bind index buffer and draw
+            m_Ibo->Bind();
+            m_Vao->DrawIndicies(Graphics::RenderPrimitives::Triangles, 12);
 
             // Swap to the buffer being written to
             m_WindowInstance->SwapBuffers();

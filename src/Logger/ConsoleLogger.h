@@ -18,9 +18,9 @@ namespace ThunderEngine {
 			ConsoleLogger();
 			virtual void Open() override;
 			virtual void Close() override;
-			virtual void WriteInfo(const std::string message) override;
-			virtual void WriteWarning(const std::string message) override;
-			virtual void WriteError(const std::string message) override;
+			virtual void WriteInfo(const std::string message, std::string args, const char splitter) override;
+			virtual void WriteWarning(const std::string message, std::string args, const char splitter) override;
+			virtual void WriteError(const std::string message, std::string args, const char splitter) override;
 		private:
 			bool IsConsoleAttached();
 			DWORD GetCurrentConsoleId();
@@ -29,8 +29,8 @@ namespace ThunderEngine {
 			std::string Format(std::string text, std::string args, const char splitter);
 			std::vector<std::string> Split(const std::string& s, char delim);
 		protected:
-			virtual void Write(const std::string message) override;
-			virtual void Write(const std::string message, std::string args, const char splitter);
+			void Write(const std::string message, std::string args, const char splitter);
+			virtual void Write(std::string message) override;
 		};
 	}
 }

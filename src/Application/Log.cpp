@@ -4,6 +4,6 @@
 namespace ThunderEngine {
 	namespace Application {
 
-		std::shared_ptr<Logger::Logger> Log::s_Logger = std::make_shared < Logger::ConsoleLogger>();
+		std::shared_ptr<Logger::Logger> Log::s_Logger = std::make_shared<Logger::ConsoleLogger>();
 	}
 }

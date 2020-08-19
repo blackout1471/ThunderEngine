@@ -1,33 +1,50 @@
 #include "tepch.h"
 #include <glad/glad.h>
+#include "Platform/OpenGL/GLRenderCommands.h"
 #include "GLVertexArray.h"
 
 namespace ThunderEngine {
 	namespace OpenGl {
 
-		GLVertexArray::GLVertexArray()
+		GLVertexArray::GLVertexArray() : m_Id(0)
 		{
 			glGenVertexArrays(1, &m_Id);
 		}
 
-		GLVertexArray::~GLVertexArray()
-		{
-		}
-
-		void GLVertexArray::InsertAttributePointer(unsigned int index, unsigned int size, ShaderType type, bool normalised, unsigned int stride, void* ptr)
-		{
-			unsigned int v = ShaderTypeConverter::ConvertToOpenglType(type);
-			glVertexAttribPointer(index, size, v, normalised, stride, ptr);
-		}
-
-		void GLVertexArray::BindBuffer()
+		void GLVertexArray::Bind()
 		{
 			glBindVertexArray(m_Id);
 		}
 
-		void GLVertexArray::EnablePointer(unsigned int location)
+		void GLVertexArray::Delete()
 		{
-			glEnableVertexAttribArray(location);
+			glDeleteVertexArrays(1, &m_Id);
+		}
+
+		void GLVertexArray::SetVertexBuffer(const Graphics::VertexBuffer* vertexBuffer)
+		{
+			const auto& layout = vertexBuffer->GetLayout();
+
+			for (const auto& element : layout)
+			{
+				glVertexAttribPointer(element.Index, element.Size, OpenGl::GLRenderCommands::PropertyToOpengl(element.Type), element.Normalised, layout.GetStride(), element.DataPointer);
+				glEnableVertexAttribArray(element.Index);
+			}
+		}
+
+		void GLVertexArray::SetIndexBuffer(Graphics::IndexBuffer* const indexBuffer)
+		{
+			indexBuffer->Bind();
+		}
+
+		void GLVertexArray::DrawArrays(const Graphics::RenderPrimitives primitive, const unsigned int offset, const unsigned int count)
+		{
+			glDrawArrays(GLRenderCommands::PropertyToOpengl(primitive), offset, count);
+		}
+
+		void GLVertexArray::DrawIndicies(const Graphics::RenderPrimitives primitive, const unsigned int count)
+		{
+			glDrawElements(GLRenderCommands::PropertyToOpengl(primitive), count, GL_UNSIGNED_INT, NULL);
 		}
 	}
 }
