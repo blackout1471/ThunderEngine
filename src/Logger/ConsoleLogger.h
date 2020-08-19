@@ -25,8 +25,12 @@ namespace ThunderEngine {
 			bool IsConsoleAttached();
 			DWORD GetCurrentConsoleId();
 			void CreateConsole();
+			bool Replace(std::string& str, const std::string& from, const std::string& to);
+			std::string Format(std::string text, std::string args, const char splitter);
+			std::vector<std::string> Split(const std::string& s, char delim);
 		protected:
 			virtual void Write(const std::string message) override;
+			virtual void Write(const std::string message, std::string args, const char splitter);
 		};
 	}
 }
