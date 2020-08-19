@@ -4,6 +4,7 @@
 #include "Core/Core.h"
 #include <Graphics/Vertice.h>
 #include <Graphics/Shaders/OpenGlShaders.h>
+#include "Time.h"
 
 namespace ThunderEngine {
 
@@ -27,7 +28,7 @@ namespace ThunderEngine {
 
         // Create the API, either CPU | Opengl | DirectX
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
-        Graphics::RenderApi::GetApi()->Init();
+        TE_ASSERT(Graphics::RenderApi::GetApi()->Init(), "Could not create initialise renderer context", "", '@');
 
         // The vertices first square
         Graphics::Vertex2D* v1 = new Graphics::Vertex2D();
@@ -122,8 +123,16 @@ namespace ThunderEngine {
             Shaders::OpenGlShaders::Shader2DFragment
         );
 
+        float t1, t2;
+        t1 = t2 = Time::GetCurrentProcessTime();
+
         while (!m_WindowInstance->ShouldWindowClose())
         {
+            // Get delta time
+            t2 = Time::GetCurrentProcessTime();
+            Time::SetDeltaTime(t2 - t1);
+            t1 = t2;
+
             // Clear color buffer and insert blue data
             Graphics::RenderApi::GetApi()->ClearColorBit();
             Graphics::RenderApi::GetApi()->ClearColor(.0, .0, .8, 1.0);

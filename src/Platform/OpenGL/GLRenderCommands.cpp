@@ -7,6 +7,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <Core/Core.h>
 #include <Utils/FileUtils.h>
 
 namespace ThunderEngine {
@@ -27,6 +28,11 @@ namespace ThunderEngine {
             {
                 return false;
             }
+
+			TE_LOG_INFO("Opengl: [{0}]", (char*)glGetString(GL_VERSION), '@');
+			TE_LOG_INFO("Glsl: [{0}]", (char*)glGetString(GL_SHADING_LANGUAGE_VERSION), '@');
+			TE_LOG_INFO("Vendor: [{0}]", (char*)glGetString(GL_VENDOR), '@');
+			TE_LOG_INFO("Renderer: [{0}]", (char*)glGetString(GL_RENDERER), '@');
 
 #if TE_DEBUG
             glEnable(GL_DEBUG_OUTPUT);
