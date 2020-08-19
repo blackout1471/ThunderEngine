@@ -43,19 +43,23 @@ namespace ThunderEngine {
 			m_ConsoleId = GetCurrentConsoleId();
 		}
 
-		void ConsoleLogger::WriteInfo(const char* message)
+		void ConsoleLogger::Write(const std::string message)
+		{
+		}
+
+		void ConsoleLogger::WriteInfo(const std::string message)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_InfoColor);
 			std::cout << message << std::endl;
 		}
 
-		void ConsoleLogger::WriteWarning(const char* message)
+		void ConsoleLogger::WriteWarning(const std::string message)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_WarningColor);
 			std::cout << message << std::endl;
 		}
 
-		void ConsoleLogger::WriteError(const char* message)
+		void ConsoleLogger::WriteError(const std::string message)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_ErrorColor);
 			std::cout << message << std::endl;

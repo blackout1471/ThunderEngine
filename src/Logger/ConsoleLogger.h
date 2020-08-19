@@ -16,17 +16,17 @@ namespace ThunderEngine {
 			byte m_WarningColor;
 		public:
 			ConsoleLogger();
-			// Inherited via Logger
 			virtual void Open() override;
 			virtual void Close() override;
-			virtual void WriteInfo(const char* message) override;
-			virtual void WriteWarning(const char* message) override;
-			virtual void WriteError(const char* message) override;
-
+			virtual void WriteInfo(const std::string message) override;
+			virtual void WriteWarning(const std::string message) override;
+			virtual void WriteError(const std::string message) override;
 		private:
 			bool IsConsoleAttached();
 			DWORD GetCurrentConsoleId();
 			void CreateConsole();
+		protected:
+			virtual void Write(const std::string message) override;
 		};
 	}
 }

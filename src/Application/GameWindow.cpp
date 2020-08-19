@@ -1,6 +1,5 @@
 #include "tepch.h"
 #include "GameWindow.h"
-#include "Log.h"
 
 namespace ThunderEngine {
 	namespace Application {
@@ -15,6 +14,7 @@ namespace ThunderEngine {
 				GameWindow::s_IsInitialized = true;
 			}
 		}
+
 		GameWindow::GameWindow() : m_Width(0), m_Height(0), m_Title(nullptr), m_Window(nullptr) {
 			InitializeLibrary();
 		}
