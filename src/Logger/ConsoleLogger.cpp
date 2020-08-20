@@ -7,6 +7,8 @@ namespace ThunderEngine {
 		ConsoleLogger::ConsoleLogger() : m_ConsoleId(0), m_ConsoleHandle(0), m_InfoColor(2), m_WarningColor(6), m_ErrorColor(4)
 		{
 			ConsoleLogger::Open();
+
+			Write("{} are you doing with size of {}", { "how", 1, "float", 2.5f, "ge", "hello", 3.5f });
 		}
 
 		void ConsoleLogger::Open()
@@ -67,14 +69,12 @@ namespace ThunderEngine {
 		/// <returns></returns>
 		std::string ConsoleLogger::Format(std::string text, std::string args, const char splitter)
 		{
-			std::string indexString("{-1}");
+			std::string indexString("{}");
 
 			std::vector<std::string> splitString = Split(args, splitter);
 
 			for (int i = 0; i < splitString.size(); i++)
 			{
-				Replace(indexString, std::to_string(i - 1), std::to_string(i));
-
 				Replace(text, indexString, splitString[i]);
 			}
 
@@ -101,12 +101,36 @@ namespace ThunderEngine {
 			std::cout << message << std::endl;
 		}
 
+
+		void ConsoleLogger::Write(const std::string message, std::vector<std::variant<std::string, int, float>> vec)
+		{
+			std::string tmp = "";
+			for (size_t i = 0; i < vec.size(); i++)
+			{
+				try {
+					tmp += std::to_string(std::get<int>(vec[i]));
+				}
+				catch (const std::bad_variant_access&) {};
+
+				try {
+					tmp += std::to_string(std::get<float>(vec[i]));
+				}
+				catch (const std::bad_variant_access&) {};
+
+				try {
+					tmp += std::get<std::string>(vec[i]);
+				}
+				catch (const std::bad_variant_access&) {};
+
+				tmp += "|";
+			}
+			Write(message, tmp, '|');
+		}
+
 		/// <summary>
-		/// <para>string a = "doing"</para> 
-		///	<para>string b = "fine"</para> 
 		///	<para>Implementation:</para> 
-		///	<para>Write("hi how are you {0} cuz i am {1}", a + "|" + b, '|');</para> 
-		///	<para>Shows: hi how are you doing cuz i am fine</para> 
+		///	<para>Write("{} are you doing with size of {}", { "how", 1, "float", 2.5f, "ge", "hello", 3.5f });</para> 
+		///	<para>How are you doing with size of 1</para> 
 		/// </summary>
 		void ConsoleLogger::Write(const std::string message, std::string args, const char splitter)
 		{

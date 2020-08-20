@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include <iostream>
 #include <Windows.h>
+#include <variant>
 
 namespace ThunderEngine {
 	namespace Logger {
@@ -29,6 +30,7 @@ namespace ThunderEngine {
 			std::string Format(std::string text, std::string args, const char splitter);
 			std::vector<std::string> Split(const std::string& s, char delim);
 		protected:
+			void Write(const std::string, std::vector<std::variant<std::string, int, float>> vec);
 			void Write(const std::string message, std::string args, const char splitter);
 			virtual void Write(std::string message) override;
 		};
