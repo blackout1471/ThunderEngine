@@ -1,6 +1,7 @@
 #pragma once
 #include "VertexArray.h"
 #include "VertexBuffer.h"
+#include "Texture.h"
 #include "Shader.h"
 
 namespace ThunderEngine {
@@ -20,6 +21,9 @@ namespace ThunderEngine {
 
 			virtual Shader* CreateShader(const std::string vertexPath, const std::string fragmentPath) = 0;
 			virtual Shader* CreateShader(const char* vertexSource, const char* fragmentSource) = 0;
+
+			virtual Texture* CreateTexture(const void* data, const unsigned int width, const unsigned int height) = 0;
+			virtual Texture* CreateTexture(const char* path) = 0;
 		};
 	}
 }

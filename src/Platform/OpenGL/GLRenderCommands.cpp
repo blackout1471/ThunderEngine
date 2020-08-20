@@ -4,6 +4,7 @@
 #include "GLVertexBuffer.h"
 #include "GLIndexBuffer.h"
 #include "GLShader.h"
+#include "GLTexture.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -110,5 +111,22 @@ namespace ThunderEngine {
 		{
 			return new GLShader(vertexSource, fragmentSource);
 		}
+
+		Graphics::Texture* GLRenderCommands::CreateTexture(const void* data, const unsigned int width, const unsigned int height) {
+			Graphics::Texture* text = new GLTexture();
+			text->Bind();
+			text->SetData((unsigned char*)data, width, height);
+
+			return text;
+		}
+
+		Graphics::Texture* GLRenderCommands::CreateTexture(const char* path) {
+			unsigned int width, height;
+
+			unsigned char* data = Utils::FileUtils::ReadImageData(path, &width, &height);
+
+			return CreateTexture(data, width, height);
+		}
+
     }
 }

@@ -8,6 +8,7 @@ namespace ThunderEngine {
 		{
 			glm::vec3 Vertice;
 			glm::vec4 Color;
+			glm::vec2 TextureCoordinates;
 		};
 
 		struct Vertex3D
