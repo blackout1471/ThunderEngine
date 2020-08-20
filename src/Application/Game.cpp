@@ -132,6 +132,7 @@ namespace ThunderEngine {
             t2 = Time::GetCurrentProcessTime();
             Time::SetDeltaTime(t2 - t1);
             t1 = t2;
+            OnUpdate();
 
             // Clear color buffer and insert blue data
             Graphics::RenderApi::GetApi()->ClearColorBit();
