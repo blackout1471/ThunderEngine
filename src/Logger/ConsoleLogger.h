@@ -19,9 +19,9 @@ namespace ThunderEngine {
 			ConsoleLogger();
 			virtual void Open() override;
 			virtual void Close() override;
-			virtual void WriteInfo(const std::string message, std::string args, const char splitter) override;
-			virtual void WriteWarning(const std::string message, std::string args, const char splitter) override;
-			virtual void WriteError(const std::string message, std::string args, const char splitter) override;
+			virtual void WriteInfo(const std::string message, std::vector<std::variant<std::string, int, float, unsigned int>> vec) override;
+			virtual void WriteWarning(const std::string message, std::vector<std::variant<std::string, int, float, unsigned int>> vec) override;
+			virtual void WriteError(const std::string message, std::vector<std::variant<std::string, int, float, unsigned int>> vec) override;
 		private:
 			bool IsConsoleAttached();
 			DWORD GetCurrentConsoleId();
@@ -30,7 +30,7 @@ namespace ThunderEngine {
 			std::string Format(std::string text, std::string args, const char splitter);
 			std::vector<std::string> Split(const std::string& s, char delim);
 		protected:
-			void Write(const std::string, std::vector<std::variant<std::string, int, float>> vec);
+			void Write(const std::string, std::vector<std::variant<std::string, int, float, unsigned int>> vec);
 			void Write(const std::string message, std::string args, const char splitter);
 			virtual void Write(std::string message) override;
 		};

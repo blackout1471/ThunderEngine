@@ -13,7 +13,7 @@ namespace ThunderEngine {
 			try {
 
 				std::ifstream ifs(path.c_str());
-				TE_ASSERT(ifs.is_open(), "Could not open path: {0}", path, '@');
+				TE_ASSERT(ifs.is_open(), "Could not open path: {}", { path });
 
 				ifs >> std::noskipws;
 
@@ -27,7 +27,7 @@ namespace ThunderEngine {
 				ifs.close();
 			}
 			catch (std::exception const& e) {
-				TE_LOG_ERROR(e.what(), "", '@');
+				TE_LOG_ERROR("{}", {e.what()});
 			}
 
 			return content;
@@ -39,7 +39,7 @@ namespace ThunderEngine {
 
 			unsigned char* _dataPtr = stbi_load(path.c_str(), (int*)width, (int*)height, &_c, 4);
 
-			TE_ASSERT(_dataPtr, "Couldn't load image: {0}", path, '@');
+			TE_ASSERT(_dataPtr, "Couldn't load image: {}", { path });
 
 			return _dataPtr;
 		}

@@ -7,8 +7,6 @@ namespace ThunderEngine {
 		ConsoleLogger::ConsoleLogger() : m_ConsoleId(0), m_ConsoleHandle(0), m_InfoColor(2), m_WarningColor(6), m_ErrorColor(4)
 		{
 			ConsoleLogger::Open();
-
-			Write("{} are you doing with size of {}", { "how", 1, "float", 2.5f, "ge", "hello", 3.5f });
 		}
 
 		void ConsoleLogger::Open()
@@ -102,7 +100,7 @@ namespace ThunderEngine {
 		}
 
 
-		void ConsoleLogger::Write(const std::string message, std::vector<std::variant<std::string, int, float>> vec)
+		void ConsoleLogger::Write(const std::string message, std::vector<std::variant<std::string, int, float, unsigned int>> vec)
 		{
 			std::string tmp = "";
 			for (size_t i = 0; i < vec.size(); i++)
@@ -122,6 +120,11 @@ namespace ThunderEngine {
 				}
 				catch (const std::bad_variant_access&) {};
 
+				try {
+					tmp += std::to_string(std::get<unsigned int>(vec[i]));
+				}
+				catch (const std::bad_variant_access&) {};
+
 				tmp += "|";
 			}
 			Write(message, tmp, '|');
@@ -138,22 +141,22 @@ namespace ThunderEngine {
 		}
 
 
-		void ConsoleLogger::WriteInfo(const std::string message, std::string args, const char splitter)
+		void ConsoleLogger::WriteInfo(const std::string message, std::vector<std::variant<std::string, int, float, unsigned int>> vec)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_InfoColor);
-			ConsoleLogger::Write(message, args, splitter);
+			ConsoleLogger::Write(message, vec);
 		}
 
-		void ConsoleLogger::WriteWarning(const std::string message, std::string args, const char splitter)
+		void ConsoleLogger::WriteWarning(const std::string message, std::vector<std::variant<std::string, int, float, unsigned int>> vec)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_WarningColor);
-			ConsoleLogger::Write(message, args, splitter);
+			ConsoleLogger::Write(message, vec);
 		}
 
-		void ConsoleLogger::WriteError(const std::string message, std::string args, const char splitter)
+		void ConsoleLogger::WriteError(const std::string message, std::vector<std::variant<std::string, int, float, unsigned int>> vec)
 		{
 			SetConsoleTextAttribute(m_ConsoleHandle, m_ErrorColor);
-			ConsoleLogger::Write(message, args, splitter);
+			ConsoleLogger::Write(message, vec);
 		}
 
 	}

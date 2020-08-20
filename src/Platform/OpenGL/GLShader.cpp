@@ -27,7 +27,7 @@ namespace ThunderEngine {
 		{
 			int _locationId = glGetUniformLocation(m_Id, name);
 			if (_locationId == -1)
-				TE_LOG_WARN("could not find location for shader {0}", name, '@');
+				TE_LOG_WARN("could not find location for shader {}", {name});
 
 			return _locationId;
 		}
@@ -53,13 +53,13 @@ namespace ThunderEngine {
 			glGetShaderiv(_vid, GL_COMPILE_STATUS, &_success); // Vertex
 			if (!_success) {
 				glGetShaderInfoLog(_vid, 512, NULL, infolog);
-				TE_LOG_ERROR("Vertex Shader error: ", infolog, '@');
+				TE_LOG_ERROR("Vertex Shader error: {}", {infolog});
 			}
 
 			glGetShaderiv(_fid, GL_COMPILE_STATUS, &_success); // fragment
 			if (!_success) {
 				glGetShaderInfoLog(_fid, 512, NULL, infolog);
-				TE_LOG_ERROR("Fragment Shader error: ", infolog, '@');
+				TE_LOG_ERROR("Fragment Shader error: {}", { infolog });
 			}
 
 			// Link Shaders
@@ -70,14 +70,14 @@ namespace ThunderEngine {
 			glGetProgramiv(_pid, GL_LINK_STATUS, &_success);
 			if (!_success) {
 				glGetProgramInfoLog(_pid, 512, NULL, infolog);
-				TE_LOG_ERROR("Shader Program Error: ", infolog, '@');
+				TE_LOG_ERROR("Shader Program Error: {}", { infolog });
 			}
 
 			// delete vertex and fragment shaders
 			glDeleteShader(_vid);
 			glDeleteShader(_fid);
 
-			TE_LOG_INFO("Shader has been created Id:{0}", std::to_string(_pid), '@');
+			TE_LOG_INFO("Shader has been created Id:{}", { _pid });
 
 			return _pid;
 		}

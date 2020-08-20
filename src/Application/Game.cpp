@@ -22,14 +22,14 @@ namespace ThunderEngine {
 	void Game::Run()
 	{
         // Create game window
-        TE_ASSERT(m_WindowInstance->CreateGameWindow(800, 600, "yes", nullptr, nullptr), "Window couldn't be created", "", '@');
-        TE_LOG_INFO("Window created Width: {0} Height: {1}", std::to_string(m_WindowInstance->GetWindowWidth()) + '@' + std::to_string(m_WindowInstance->GetWindowHeight()), '@');
+        TE_ASSERT(m_WindowInstance->CreateGameWindow(800, 600, "yes", nullptr, nullptr), "Window couldn't be created", {""});
+        TE_LOG_INFO("Window created Width: {} Height: {}", {m_WindowInstance->GetWindowWidth(), m_WindowInstance->GetWindowHeight()});
 
         m_WindowInstance->MakeContextCurrent(); // Make it the target to draw to
 
         // Create the API, either CPU | Opengl | DirectX
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
-        TE_ASSERT(Graphics::RenderApi::GetApi()->Init(), "Could not create initialise renderer context", "", '@');
+        TE_ASSERT(Graphics::RenderApi::GetApi()->Init(), "Could not create initialise renderer context", {});
 
         // Create image
         uint32_t whiteColor = 0xffffffff; // White image

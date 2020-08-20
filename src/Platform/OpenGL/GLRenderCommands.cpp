@@ -30,10 +30,10 @@ namespace ThunderEngine {
                 return false;
             }
 
-			TE_LOG_INFO("Opengl: [{0}]", (char*)glGetString(GL_VERSION), '@');
-			TE_LOG_INFO("Glsl: [{0}]", (char*)glGetString(GL_SHADING_LANGUAGE_VERSION), '@');
-			TE_LOG_INFO("Vendor: [{0}]", (char*)glGetString(GL_VENDOR), '@');
-			TE_LOG_INFO("Renderer: [{0}]", (char*)glGetString(GL_RENDERER), '@');
+			TE_LOG_INFO("Opengl: [{}]", { (char*)glGetString(GL_VERSION) });
+			TE_LOG_INFO("Glsl: [{}]", {(char*)glGetString(GL_SHADING_LANGUAGE_VERSION)});
+			TE_LOG_INFO("Vendor: [{}]", {(char*)glGetString(GL_VENDOR)});
+			TE_LOG_INFO("Renderer: [{}]", {(char*)glGetString(GL_RENDERER)});
 
 #if TE_DEBUG
             glEnable(GL_DEBUG_OUTPUT);
