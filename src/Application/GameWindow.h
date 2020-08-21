@@ -11,23 +11,33 @@ namespace ThunderEngine {
 			static void Terminate();
 		private:
 			GLFWwindow* m_Window;
-			int m_Width;
-			int m_Height;
-			char* m_Title;
+			GameWindowSpecifications m_Specifications;
 		public:
 			GameWindow();
 			~GameWindow();
-			bool CreateGameWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share);
+			bool CreateGameWindow(const GameWindowSpecifications& specifications, GLFWmonitor* monitor, GLFWwindow* share);
 			void MakeContextCurrent();
 			bool ShouldWindowClose();
 			void SwapBuffers();
 			void PollEvents();
 			void SetWindowSize(int width, int height);
-			void SetWindowTitle(char* title);
-			char* GetWindowTitle();
-			int GetWindowHeight();
-			int GetWindowWidth();
+			void SetWindowTitle(const char* title);
+			const char* GetWindowTitle();
+			const int GetWindowHeight();
+			const int GetWindowWidth();
 			void CloseWindow();
+		};
+
+		struct GameWindowSpecifications {
+			GameWindowSpecifications(unsigned int width, unsigned int height, const char* title) {
+				this->width = width;
+				this->height = height;
+				this->title = title;
+			}
+
+			unsigned int width;
+			unsigned int height;
+			const char* title;
 		};
 	}
 }

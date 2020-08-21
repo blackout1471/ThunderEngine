@@ -24,7 +24,7 @@ namespace ThunderEngine {
 	void Game::Run()
 	{
         // Create game window
-        TE_ASSERT(m_WindowInstance->CreateGameWindow(800, 600, "yes", nullptr, nullptr), "Window couldn't be created", {""});
+        TE_ASSERT(m_WindowInstance->CreateGameWindow(Application::GameWindowSpecifications(800, 600, "Yes"), nullptr, nullptr), "Window couldn't be created", { "" });
         TE_LOG_INFO("Window created Width: {} Height: {}", {m_WindowInstance->GetWindowWidth(), m_WindowInstance->GetWindowHeight()});
 
         m_WindowInstance->MakeContextCurrent(); // Make it the target to draw to

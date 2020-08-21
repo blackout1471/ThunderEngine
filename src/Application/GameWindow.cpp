@@ -15,15 +15,13 @@ namespace ThunderEngine {
 			}
 		}
 
-		GameWindow::GameWindow() : m_Width(0), m_Height(0), m_Title(nullptr), m_Window(nullptr) {
+		GameWindow::GameWindow() : m_Specifications(800, 600, "Yes"), m_Window(nullptr) {
 			InitializeLibrary();
 		}
 
-		bool GameWindow::CreateGameWindow(int width, int height, char* title, GLFWmonitor* monitor, GLFWwindow* share) {
-			m_Window = glfwCreateWindow(width, height, title, monitor, share);
-			m_Width = width;
-			m_Height = height;
-			m_Title = title;
+		bool GameWindow::CreateGameWindow(const GameWindowSpecifications& specifications, GLFWmonitor* monitor, GLFWwindow* share) {
+			m_Specifications = specifications;
+			m_Window = glfwCreateWindow(m_Specifications.width, m_Specifications.height, m_Specifications.title, monitor, share);
 			if (!m_Window)
 				return false;
 
@@ -53,29 +51,29 @@ namespace ThunderEngine {
 		void GameWindow::SetWindowSize(int width, int height)
 		{
 			glfwSetWindowSize(m_Window, width, height);
-			m_Width = width;
-			m_Height = height;
+			m_Specifications.width = width;
+			m_Specifications.height = height;
 		}
 
-		void GameWindow::SetWindowTitle(char* title)
+		void GameWindow::SetWindowTitle(const char* title)
 		{
 			glfwSetWindowTitle(m_Window, title);
-			m_Title = title;
+			m_Specifications.title = title;
 		}
 
-		char* GameWindow::GetWindowTitle()
+		const char* GameWindow::GetWindowTitle()
 		{
-			return m_Title;
+			return m_Specifications.title;
 		}
 
-		int GameWindow::GetWindowHeight()
+		const int GameWindow::GetWindowHeight()
 		{
-			return m_Height;
+			return m_Specifications.height;
 		}
 
-		int GameWindow::GetWindowWidth()
+		const int GameWindow::GetWindowWidth()
 		{
-			return m_Width;
+			return m_Specifications.width;
 		}
 
 		void GameWindow::CloseWindow()
@@ -89,8 +87,6 @@ namespace ThunderEngine {
 		}
 
 		GameWindow::~GameWindow() {
-			delete m_Window;
-			delete m_Title;
 		}
 	}
 }
