@@ -77,7 +77,8 @@ namespace ThunderEngine {
         m_Vbo->SetLayout({
             {0, 3, Graphics::ShaderType::Float, false},
             {1, 4, Graphics::ShaderType::Float, false},
-            {2, 2, Graphics::ShaderType::Float, false}
+            {2, 2, Graphics::ShaderType::Float, false},
+            {3, 1, Graphics::ShaderType::Float, false}
             });
 
         // Set the buffers for the array
@@ -90,21 +91,25 @@ namespace ThunderEngine {
         m_BufferPointer->Vertice = v1->Vertice;
         m_BufferPointer->Color  = v1->Color;
         m_BufferPointer->TextureCoordinates = v1->TextureCoordinates;
+        m_BufferPointer->TextureId = 0;
         m_BufferPointer++;
 
         m_BufferPointer->Vertice = v2->Vertice;
         m_BufferPointer->Color = v2->Color;
         m_BufferPointer->TextureCoordinates = v2->TextureCoordinates;
+        m_BufferPointer->TextureId = 0;
         m_BufferPointer++;
 
         m_BufferPointer->Vertice = v3->Vertice;
         m_BufferPointer->Color = v3->Color;
         m_BufferPointer->TextureCoordinates = v3->TextureCoordinates;
+        m_BufferPointer->TextureId = 0;
         m_BufferPointer++;
 
         m_BufferPointer->Vertice = v4->Vertice;
         m_BufferPointer->Color = v4->Color;
         m_BufferPointer->TextureCoordinates = v4->TextureCoordinates;
+        m_BufferPointer->TextureId = 0;
         m_BufferPointer++;
 
         m_Vbo->ReleasePointer(); // release the buffer pointer
@@ -136,7 +141,7 @@ namespace ThunderEngine {
 
             // Bind shader and send data through, to draw
             shader->Bind();
-            shader->SetInt("tex", 0);
+            shader->SetInt("textures[0]", 0);
 
             // Bind index buffer and draw
             m_Ibo->Bind();
