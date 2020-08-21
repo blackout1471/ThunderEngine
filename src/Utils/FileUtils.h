@@ -7,7 +7,7 @@ namespace ThunderEngine {
 		class FileUtils {
 		public:
 			static std::string ReadFileContent(const std::string path);
-			static unsigned char* ReadImageData(const std::string path, unsigned int* width, unsigned int* height);
+			static unsigned char* ReadImageData(const std::string path, unsigned int* width, unsigned int* height, unsigned int* channels);
 			static void FlipImages(const bool flip);
 			static std::vector<std::string> Split(const std::string& text, char delimiter);
 		};

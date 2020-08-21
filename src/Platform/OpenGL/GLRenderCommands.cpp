@@ -112,20 +112,20 @@ namespace ThunderEngine {
 			return new GLShader(vertexSource, fragmentSource);
 		}
 
-		Graphics::Texture* GLRenderCommands::CreateTexture(const void* data, const unsigned int width, const unsigned int height) {
+		Graphics::Texture* GLRenderCommands::CreateTexture(const void* data, const unsigned int width, const unsigned int height, const unsigned int channels) {
 			Graphics::Texture* text = new GLTexture();
 			text->Bind();
-			text->SetData((unsigned char*)data, width, height);
+			text->SetData((unsigned char*)data, width, height, channels);
 
 			return text;
 		}
 
 		Graphics::Texture* GLRenderCommands::CreateTexture(const char* path) {
-			unsigned int width, height;
+			unsigned int width, height, channels;
 
-			unsigned char* data = Utils::FileUtils::ReadImageData(path, &width, &height);
+			unsigned char* data = Utils::FileUtils::ReadImageData(path, &width, &height, &channels);
 
-			return CreateTexture(data, width, height);
+			return CreateTexture(data, width, height, channels);
 		}
 
     }

@@ -20,7 +20,7 @@ namespace ThunderEngine {
 			virtual Graphics::Shader* CreateShader(const char* vertexShaderSource, const char* fragmentShaderSource) override;
 			virtual Graphics::Shader* CreateShader(const std::string vertexPath, const std::string fragmentPath) override;
 
-			virtual Graphics::Texture* CreateTexture(const void* data, const unsigned int width, const unsigned int height) override;
+			virtual Graphics::Texture* CreateTexture(const void* data, const unsigned int width, const unsigned int height, const unsigned int channels) override;
 			virtual Graphics::Texture* CreateTexture(const char* path) override;
 			
 		public:

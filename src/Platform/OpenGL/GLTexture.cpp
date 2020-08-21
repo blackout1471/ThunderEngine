@@ -15,9 +15,24 @@ namespace ThunderEngine {
 			glActiveTexture(GL_TEXTURE0 + slot);
 		}
 
-		void GLTexture::SetData(const unsigned char* data, const unsigned int width, const unsigned int height)
+		void GLTexture::SetData(const unsigned char* data, const unsigned int width, const unsigned int height, const unsigned int channels)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			unsigned int internalFormat;
+			unsigned int dataFormat;
+
+			switch (channels)
+			{
+			case 3:
+				internalFormat = GL_RGB8;
+				dataFormat = GL_RGB;
+				break;
+			default:
+				internalFormat = GL_RGB8;
+				dataFormat = GL_RGBA;
+				break;
+			}
+
+			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
 			SetFiltering();
 		}
 

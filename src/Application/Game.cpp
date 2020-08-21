@@ -38,7 +38,7 @@ namespace ThunderEngine {
         // Create image
         uint32_t whiteColor = 0xffffffff; // White image        
 
-        Graphics::Texture* whiteTexture = Graphics::RenderApi::GetApi()->CreateTexture(&whiteColor, 1, 1);
+        Graphics::Texture* whiteTexture = Graphics::RenderApi::GetApi()->CreateTexture(&whiteColor, 1, 1, 3);
 
         // The vertices first square
         Graphics::Vertex2D* v1 = new Graphics::Vertex2D();
