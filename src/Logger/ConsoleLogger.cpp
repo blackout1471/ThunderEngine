@@ -1,6 +1,7 @@
 #include "tepch.h"
 #include "ConsoleLogger.h"
 #include <sstream>
+#include <typeinfo>
 
 namespace ThunderEngine {
 	namespace Logger {
@@ -105,26 +106,28 @@ namespace ThunderEngine {
 			std::string tmp = "";
 			for (size_t i = 0; i < vec.size(); i++)
 			{
-				try {
-					tmp += std::to_string(std::get<int>(vec[i]));
-				}
-				catch (const std::bad_variant_access&) {};
-
-				try {
-					tmp += std::to_string(std::get<float>(vec[i]));
-				}
-				catch (const std::bad_variant_access&) {};
-
-				try {
+				size_t indexInVariant = vec[i].index();
+			
+				switch (indexInVariant)
+				{
+				case 0:
 					tmp += std::get<std::string>(vec[i]);
-				}
-				catch (const std::bad_variant_access&) {};
-
-				try {
+					break;
+				case 1:
+					tmp += std::to_string(std::get<int>(vec[i]));
+					break;
+				case 2:
+					tmp += std::to_string(std::get<float>(vec[i]));
+					break;
+				case 3:
 					tmp += std::to_string(std::get<unsigned int>(vec[i]));
-				}
-				catch (const std::bad_variant_access&) {};
+					break;
 
+				default:
+					tmp += "Error in ConsoleLogger Write method";
+					break;
+				}
+				
 				tmp += "|";
 			}
 			Write(message, tmp, '|');
