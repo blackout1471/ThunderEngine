@@ -21,6 +21,7 @@ namespace ThunderEngine {
 
 		bool GameWindow::CreateGameWindow(const GameWindowSpecifications& specifications, GLFWmonitor* monitor, GLFWwindow* share) {
 			m_Specifications = specifications;
+
 			m_Window = glfwCreateWindow(m_Specifications.width, m_Specifications.height, m_Specifications.title, monitor, share);
 			if (!m_Window)
 				return false;

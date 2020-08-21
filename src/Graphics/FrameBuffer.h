@@ -3,6 +3,12 @@
 
 namespace ThunderEngine {
 	namespace Graphics {
+		struct FrameBufferSpecifications {
+			unsigned int width;
+			unsigned int height;
+			unsigned int samples;
+		};
+
 		class FrameBuffer {
 		protected:
 			unsigned int m_Id;
@@ -17,12 +23,6 @@ namespace ThunderEngine {
 			virtual void Resize(const unsigned int width, const unsigned int height) = 0;
 		public:
 			const FrameBufferSpecifications& GetSpecifications() const { return m_Specifications; }
-		};
-
-		struct FrameBufferSpecifications {
-			unsigned int width;
-			unsigned int height;
-			unsigned int samples;
 		};
 	}
 }

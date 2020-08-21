@@ -3,6 +3,18 @@
 
 namespace ThunderEngine {
 	namespace Application {
+		struct GameWindowSpecifications {
+			GameWindowSpecifications(unsigned int width, unsigned int height, const char* title) {
+				this->width = width;
+				this->height = height;
+				this->title = title;
+			}
+
+			unsigned int width;
+			unsigned int height;
+			const char* title;
+		};
+
 		class GameWindow
 		{
 		private:
@@ -26,18 +38,6 @@ namespace ThunderEngine {
 			const int GetWindowHeight();
 			const int GetWindowWidth();
 			void CloseWindow();
-		};
-
-		struct GameWindowSpecifications {
-			GameWindowSpecifications(unsigned int width, unsigned int height, const char* title) {
-				this->width = width;
-				this->height = height;
-				this->title = title;
-			}
-
-			unsigned int width;
-			unsigned int height;
-			const char* title;
 		};
 	}
 }
