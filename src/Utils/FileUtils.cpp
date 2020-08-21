@@ -41,6 +41,8 @@ namespace ThunderEngine {
 
 			TE_ASSERT(_dataPtr, "Couldn't load image: {}", { path });
 
+			//stbi_image_free(_dataPtr);
+
 			return _dataPtr;
 		}
 

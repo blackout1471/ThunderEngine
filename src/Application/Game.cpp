@@ -7,6 +7,8 @@
 #include <Graphics/Texture.h>
 #include "Time.h"
 
+#include <Utils/FileUtils.h>
+
 namespace ThunderEngine {
 
 	Game::Game() : m_IsRunning(true), m_WindowInstance(nullptr)
@@ -31,16 +33,12 @@ namespace ThunderEngine {
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
         TE_ASSERT(Graphics::RenderApi::GetApi()->Init(), "Could not create initialise renderer context", {});
 
-        // Create image
-        uint32_t whiteColor = 0xffffffff; // White image
-        const char gay[16] = {
-            0xff, 0xff, 0xff, 0xff,
-            0xff, 0x00, 0x00, 0xff,
-            0xbb, 0xbb, 0xbb, 0xff,
-            0x00, 0x00, 0x00, 0xff
-        };
+        Graphics::RenderApi::GetApi()->SetBlend(true);
 
-        Graphics::Texture* whiteTexture = Graphics::RenderApi::GetApi()->CreateTexture(&gay, 2, 2);
+        // Create image
+        uint32_t whiteColor = 0xffffffff; // White image        
+
+        Graphics::Texture* whiteTexture = Graphics::RenderApi::GetApi()->CreateTexture(&whiteColor, 1, 1);
 
         // The vertices first square
         Graphics::Vertex2D* v1 = new Graphics::Vertex2D();
@@ -48,8 +46,8 @@ namespace ThunderEngine {
         Graphics::Vertex2D* v3 = new Graphics::Vertex2D();
         Graphics::Vertex2D* v4 = new Graphics::Vertex2D();
 
-        v1->Vertice = glm::vec3(-0.2f, 0.5f, 0.0f);
-        v2->Vertice = glm::vec3(-0.2f, -0.5f, 0.0f);
+        v1->Vertice = glm::vec3(0.5f, 0.5f, 0.0f);
+        v2->Vertice = glm::vec3(0.5f, -0.5f, 0.0f);
         v3->Vertice = glm::vec3(-0.5f, -0.5f, 0.0f);
         v4->Vertice = glm::vec3(-0.5f, 0.5f, 0.0f);
 
@@ -58,11 +56,15 @@ namespace ThunderEngine {
         v3->Color = glm::vec4(1.f, 1.f, 1.0f, 1.f);
         v4->Color = glm::vec4(1.f, 1.f, 1.0f, 1.f);
 
-        v1->TextureCoordinates = glm::vec2(1.f, 1.f);
-        v2->TextureCoordinates = glm::vec2(0.f, 1.f);
-        v3->TextureCoordinates = glm::vec2(0.f, 0.f);
-        v4->TextureCoordinates = glm::vec2(0.f, 1.f);
+        v1->TextureCoordinates = glm::vec2(1.f, 0.f);
+        v2->TextureCoordinates = glm::vec2(1.f, 1.f);
+        v3->TextureCoordinates = glm::vec2(0.f, 1.f);
+        v4->TextureCoordinates = glm::vec2(0.0f, 0.f);
 
+        v1->TextureId = 0.f;
+        v2->TextureId = 0.f;
+        v3->TextureId = 0.f;
+        v4->TextureId = 0.f;
 
         // Create the different buffers 
         Graphics::VertexArray* m_Vao = Graphics::RenderApi::GetApi()->CreateVertexArray();
@@ -91,25 +93,25 @@ namespace ThunderEngine {
         m_BufferPointer->Vertice = v1->Vertice;
         m_BufferPointer->Color  = v1->Color;
         m_BufferPointer->TextureCoordinates = v1->TextureCoordinates;
-        m_BufferPointer->TextureId = 0;
+        m_BufferPointer->TextureId = v1->TextureId;
         m_BufferPointer++;
 
         m_BufferPointer->Vertice = v2->Vertice;
         m_BufferPointer->Color = v2->Color;
         m_BufferPointer->TextureCoordinates = v2->TextureCoordinates;
-        m_BufferPointer->TextureId = 0;
+        m_BufferPointer->TextureId = v2->TextureId;
         m_BufferPointer++;
 
         m_BufferPointer->Vertice = v3->Vertice;
         m_BufferPointer->Color = v3->Color;
         m_BufferPointer->TextureCoordinates = v3->TextureCoordinates;
-        m_BufferPointer->TextureId = 0;
+        m_BufferPointer->TextureId = v3->TextureId;
         m_BufferPointer++;
 
         m_BufferPointer->Vertice = v4->Vertice;
         m_BufferPointer->Color = v4->Color;
         m_BufferPointer->TextureCoordinates = v4->TextureCoordinates;
-        m_BufferPointer->TextureId = 0;
+        m_BufferPointer->TextureId = v4->TextureId;
         m_BufferPointer++;
 
         m_Vbo->ReleasePointer(); // release the buffer pointer
