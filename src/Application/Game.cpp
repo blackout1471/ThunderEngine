@@ -27,10 +27,11 @@ namespace ThunderEngine {
         TE_ASSERT(m_WindowInstance->CreateGameWindow(Application::GameWindowSpecifications(800, 600, "Yes", false), nullptr, nullptr), "Window couldn't be created", { "" });
         TE_LOG_INFO("Window created Width: {} Height: {}", {m_WindowInstance->GetWidth(), m_WindowInstance->GetHeight()});
 
+        // Set window event handler
+        m_WindowInstance->SetEventHandler(std::bind(&Game::OnGameWindowEvent, this, std::placeholders::_1));
+        
         m_WindowInstance->MakeContextCurrent(); // Make it the target to draw to
         
-        // Set window event handler
-        m_WindowInstance->SetEventHandler(std::bind(&OnGameWindowEvent, this, std::placeholders::_1));
 
         // Create the API, either CPU | Opengl | DirectX
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
@@ -160,5 +161,6 @@ namespace ThunderEngine {
 
     void Game::OnGameWindowEvent(Events::Event& ev)
     {
+        
     }
 }

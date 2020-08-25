@@ -178,6 +178,7 @@ namespace ThunderEngine {
 
 		void GameWindow::SetEventHandler(std::function<void(Events::Event&)> eventHandler)
 		{
+			m_Specifications.EventCallBack = eventHandler;
 		}
 
 		void GameWindow::Terminate()
