@@ -1,18 +1,24 @@
 #pragma once
 #include <GLFW/glfw3.h>
+#include <Events/Event.h>
+#include <functional>
 
 namespace ThunderEngine {
 	namespace Application {
 		struct GameWindowSpecifications {
-			GameWindowSpecifications(unsigned int width, unsigned int height, const char* title) {
-				this->width = width;
-				this->height = height;
-				this->title = title;
+			GameWindowSpecifications(unsigned int width, unsigned int height, const char* title, const bool vsync) {
+				this->Width = width;
+				this->Height = height;
+				this->Title = title;
+				this->VSync = vsync;
 			}
 
-			unsigned int width;
-			unsigned int height;
-			const char* title;
+			unsigned int Width;
+			unsigned int Height;
+			const char* Title;
+			bool VSync;
+
+			std::function<void(Events::Event&)> EventCallBack;
 		};
 
 		class GameWindow
@@ -34,11 +40,14 @@ namespace ThunderEngine {
 			void PollEvents();
 			void SetWindowSize(int width, int height);
 			void SetWindowTitle(const char* title);
-			const char* GetWindowTitle();
-			const int GetWindowHeight();
-			const int GetWindowWidth();
+			const char* GetTitle();
+			const int GetHeight();
+			const int GetWidth();
 			void CloseWindow();
+			void SetVSync(const bool enabled);
+			void SetEventHandler(std::function<void(Events::Event&)> eventHandler);
+		private:
+			void SetEvents();
 		};
 	}
 }
-

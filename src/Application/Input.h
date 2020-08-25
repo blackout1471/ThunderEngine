@@ -13,8 +13,6 @@ namespace ThunderEngine {
 			static bool GetMouseUp(MouseButton mouseBtn);
 			static bool GetKeyDown(KeyCode keyCode);
 			static bool GetKeyUp(KeyCode keyCode);
-		public:
-			GLFWkeyfun SetKeyCallBack(GLFWkeyfun callback);
 		};
 
 	}

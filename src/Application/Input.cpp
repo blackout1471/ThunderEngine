@@ -33,9 +33,5 @@ namespace ThunderEngine {
 
 			return (state == 0);
 		}
-		GLFWkeyfun Input::SetKeyCallBack(GLFWkeyfun callback)
-		{
-			return glfwSetKeyCallback(glfwGetCurrentContext(), callback);
-		}
 	}
 }

@@ -4,9 +4,16 @@
 namespace ThunderEngine {
 	namespace Graphics {
 		struct FrameBufferSpecifications {
-			unsigned int width;
-			unsigned int height;
-			unsigned int samples;
+			FrameBufferSpecifications(unsigned int width, unsigned int height, unsigned int samples)
+			{
+				Width = width;
+				Height = height;
+				Samples = samples;
+			}
+
+			unsigned int Width;
+			unsigned int Height;
+			unsigned int Samples;
 		};
 
 		class FrameBuffer {
@@ -14,7 +21,7 @@ namespace ThunderEngine {
 			unsigned int m_Id;
 			FrameBufferSpecifications m_Specifications;
 		protected:
-			FrameBuffer() {};
+			FrameBuffer() : m_Id(0), m_Specifications(800, 600, 1) {};
 		public:
 			virtual ~FrameBuffer() = 0;
 		public:

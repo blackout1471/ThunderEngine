@@ -24,10 +24,13 @@ namespace ThunderEngine {
 	void Game::Run()
 	{
         // Create game window
-        TE_ASSERT(m_WindowInstance->CreateGameWindow(Application::GameWindowSpecifications(800, 600, "Yes"), nullptr, nullptr), "Window couldn't be created", { "" });
-        TE_LOG_INFO("Window created Width: {} Height: {}", {m_WindowInstance->GetWindowWidth(), m_WindowInstance->GetWindowHeight()});
+        TE_ASSERT(m_WindowInstance->CreateGameWindow(Application::GameWindowSpecifications(800, 600, "Yes", false), nullptr, nullptr), "Window couldn't be created", { "" });
+        TE_LOG_INFO("Window created Width: {} Height: {}", {m_WindowInstance->GetWidth(), m_WindowInstance->GetHeight()});
 
         m_WindowInstance->MakeContextCurrent(); // Make it the target to draw to
+        
+        // Set window event handler
+        m_WindowInstance->SetEventHandler(std::bind(&OnGameWindowEvent, this, std::placeholders::_1));
 
         // Create the API, either CPU | Opengl | DirectX
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
@@ -154,4 +157,8 @@ namespace ThunderEngine {
             m_WindowInstance->PollEvents(); // Get window events and process
         }
 	}
+
+    void Game::OnGameWindowEvent(Events::Event& ev)
+    {
+    }
 }
