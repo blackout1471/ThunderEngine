@@ -4,6 +4,9 @@
 namespace ThunderEngine {
 	namespace Graphics {
 
+		/// <summary>
+		/// Used to represent a vertex in the 2d renderer
+		/// </summary>
 		struct Vertex2D
 		{
 			glm::vec3 Vertice;
@@ -12,6 +15,9 @@ namespace ThunderEngine {
 			float TextureId;
 		};
 
+		/// <summary>
+		/// Used to represent a vertex in the 3d renderer
+		/// </summary>
 		struct Vertex3D
 		{
 			glm::vec3 Vertice;

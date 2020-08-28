@@ -161,6 +161,6 @@ namespace ThunderEngine {
 
     void Game::OnGameWindowEvent(Events::Event& ev)
     {
-        
+        TE_LOG_INFO(ev.ToString(), {});
     }
 }

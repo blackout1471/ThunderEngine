@@ -2,6 +2,7 @@
 #include "Input.h"
 namespace ThunderEngine {
 	namespace Application {
+
 		glm::vec2 Input::GetMousePos()
 		{
 			double xpos, ypos;
@@ -9,17 +10,20 @@ namespace ThunderEngine {
 			
 			return glm::vec2(xpos, ypos);
 		}
+
 		bool Input::GetMouseDown(MouseButton mouseBtn)
 		{
 			int state = glfwGetMouseButton(glfwGetCurrentContext(), (int)mouseBtn);
 			return (state == 1 || state == 2);
 		}
+
 		bool Input::GetMouseUp(MouseButton mouseBtn)
 		{
 			int state = glfwGetMouseButton(glfwGetCurrentContext(), (int)mouseBtn);
 
 			return (state == 0);
 		}
+
 		bool Input::GetKeyDown(KeyCode keyCode)
 		{
 			int state = glfwGetKey(glfwGetCurrentContext(), (int)keyCode);

@@ -45,15 +45,18 @@ namespace ThunderEngine {
 			return glfwWindowShouldClose(m_Window);
 		}
 
+
 		void GameWindow::SwapBuffers()
 		{
 			glfwSwapBuffers(m_Window);
 		}
 
+
 		void GameWindow::PollEvents()
 		{
 			glfwPollEvents();
 		}
+
 
 		void GameWindow::SetWindowSize(int width, int height)
 		{
@@ -61,6 +64,7 @@ namespace ThunderEngine {
 			m_Specifications.Width = width;
 			m_Specifications.Height = height;
 		}
+
 
 		void GameWindow::SetWindowTitle(const char* title)
 		{
@@ -176,7 +180,8 @@ namespace ThunderEngine {
 			});
 		}
 
-		void GameWindow::SetEventHandler(std::function<void(Events::Event&)> eventHandler)
+
+		void GameWindow::SetEventHandler(const std::function<void(Events::Event&)>& eventHandler)
 		{
 			m_Specifications.EventCallBack = eventHandler;
 		}
@@ -187,7 +192,7 @@ namespace ThunderEngine {
 		}
 
 		GameWindow::~GameWindow() {
-			glfwDestroyWindow(m_Window);
+			this->CloseWindow();
 			delete m_Window;
 		}
 	}
