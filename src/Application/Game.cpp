@@ -40,8 +40,7 @@ namespace ThunderEngine {
         Graphics::RenderApi::GetApi()->SetBlend(true);
 
         // Create image
-        uint32_t whiteColor = 0xffffffff; // White image        
-
+        uint32_t whiteColor = 0xffffffff; // White image
         Graphics::Texture* whiteTexture = Graphics::RenderApi::GetApi()->CreateTexture(&whiteColor, Graphics::TextureProperties(1, 1, 3));
 
         // The vertices first square

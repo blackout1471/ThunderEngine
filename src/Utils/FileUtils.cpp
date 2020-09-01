@@ -35,7 +35,7 @@ namespace ThunderEngine {
 
 		unsigned char* FileUtils::ReadImageData(const std::string path, unsigned int* width, unsigned int* height, unsigned int* channels)
 		{
-			unsigned char* _dataPtr = stbi_load(path.c_str(), (int*)width, (int*)height, (int*)channels, 4);
+			unsigned char* _dataPtr = stbi_load(path.c_str(), (int*)width, (int*)height, (int*)channels, 0);
 
 			TE_ASSERT(_dataPtr, "Couldn't load image: {}", { path });
 
