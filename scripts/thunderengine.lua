@@ -23,6 +23,7 @@ IncludeDir["GLFW"] = "../vendor/glfw/include"
 IncludeDir["Glad"] = "../vendor/glad/include"
 IncludeDir["glm"] = "../vendor/glm"
 IncludeDir["stb"] = "../vendor/stb"
+IncludeDir["entt"] = "../vendor/entt"
 
 group "Dependencies"
 	include "glfw.lua"
@@ -59,7 +60,8 @@ project "ThunderEngine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.stb}"
+		"%{IncludeDir.stb}",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
