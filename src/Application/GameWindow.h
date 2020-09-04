@@ -137,8 +137,7 @@ namespace ThunderEngine {
 			/// <param name="eventHandler"></param>
 			void SetEventHandler(const std::function<void(Events::Event&)>& eventHandler);
 		private:
-			
-			
+
 			/// <summary>
 			/// Sets the events for the window
 			/// </summary>

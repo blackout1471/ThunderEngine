@@ -6,9 +6,6 @@
 
 #include <Utils/FileUtils.h>
 
-/// TEST
-#include <Entity/Scene.h>
-
 namespace ThunderEngine {
 
 	Game::Game() : m_IsRunning(true), m_WindowInstance(nullptr)
@@ -36,9 +33,6 @@ namespace ThunderEngine {
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
         TE_ASSERT(Graphics::RenderApi::GetApi()->Init(), "Could not create initialise renderer context", {});
 
-        // TEst with a scene
-        Entity::Scene* curScene = new Entity::Scene();
-
         float t1, t2;
         t1 = t2 = Time::GetCurrentProcessTime();
 
@@ -50,8 +44,7 @@ namespace ThunderEngine {
             t1 = t2;
             OnUpdate();
 
-            // Update the scene
-            curScene->OnUpdate();
+            // Update systems
 
             // Swap to the buffer being written to
             m_WindowInstance->SwapBuffers();

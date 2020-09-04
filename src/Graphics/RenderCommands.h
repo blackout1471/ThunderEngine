@@ -50,14 +50,14 @@ namespace ThunderEngine {
 			/// <summary>
 			/// Creates a vertex buffer for the current api
 			/// </summary>
-			/// <param name="data"></param>
+			/// <param name="data">The data that will be attached</param>
 			/// <returns></returns>
 			virtual VertexBuffer* CreateVertexBuffer(const void* data) = 0;
 			
 			/// <summary>
 			/// Creates a vertex buffer for the current api
 			/// </summary>
-			/// <param name="size"></param>
+			/// <param name="size">The size of the data in bytes</param>
 			/// <returns></returns>
 			virtual VertexBuffer* CreateVertexBuffer(const unsigned int size) = 0;
 			
