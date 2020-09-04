@@ -4,12 +4,14 @@
 namespace ThunderEngine {
 	namespace Entity {
 		
-		Scene* SceneManager::s_CurrentScene = nullptr;
+		// Todo: Find out how to handle scene deletion from memory
+		std::shared_ptr<SceneManager> SceneManager::s_SceneManager = std::make_shared<SceneManager>();
 
-		void SceneManager::SetScene(Scene* scene)
+		template<typename T>
+		void SceneManager::ChangeScene()
 		{
-			SceneManager::s_CurrentScene = scene;
-			SceneManager::s_CurrentScene->OnStart();
+			m_CurrentScene = new T();
+			m_CurrentScene->OnStart();
 		}
 
 	}

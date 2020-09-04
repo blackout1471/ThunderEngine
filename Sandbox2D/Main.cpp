@@ -22,7 +22,7 @@ class UbberGame : public ThunderEngine::Game {
 
     virtual void OnStart() override
     {
-        ThunderEngine::Entity::SceneManager::SetScene(new FirstScene());
+        ThunderEngine::Entity::SceneManager::GetScenes()->ChangeScene<FirstScene>();
     }
 
     virtual void OnUpdate() override

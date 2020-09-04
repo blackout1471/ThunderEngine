@@ -12,11 +12,10 @@ namespace ThunderEngine {
 		{
 		private:
 			entt::registry m_Registry;
-
-		public:
+		protected:
 			Scene();
 			~Scene();
-
+		public:
 			Entity CreateEntity();
 			virtual void OnStart() = 0;
 			virtual void OnUpdate() = 0;

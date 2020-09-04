@@ -52,7 +52,7 @@ namespace ThunderEngine {
 
 		void Renderer2D::OnUpdate()
 		{
-			m_CurrentScene = Entity::SceneManager::GetCurrentScene();
+			m_CurrentScene = Entity::SceneManager::GetScenes()->GetCurrentScene();
 		}
 
 		void Renderer2D::OnDraw()

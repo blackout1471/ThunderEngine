@@ -8,12 +8,18 @@ namespace ThunderEngine {
 		// TODO: See into deleting the scene afterwards
 		class SceneManager {
 		private:
-			static Scene* s_CurrentScene;
+			static std::shared_ptr<SceneManager> s_SceneManager;
+		public:
+			inline static std::shared_ptr<SceneManager>& GetScenes() { return s_SceneManager; }
+
+		private:
+			Scene* m_CurrentScene;
 
 		public:
-			static void SetScene(Scene* scene);
+			template<typename T>
+			void ChangeScene();
 
-			inline static Scene* GetCurrentScene() { return s_CurrentScene; }
+			inline Scene* GetCurrentScene() { return m_CurrentScene; }
 		};
 	}
 }

@@ -10,14 +10,17 @@ namespace ThunderEngine {
 
 		SystemManager::SystemManager()
 		{
-			m_Systems = {
-				new Renderer2D()
-			};
+			m_Systems = std::vector<System*>();
+			
+			this->AddSystem(new Renderer2D());
 		}
 
 		SystemManager::~SystemManager()
 		{
-			// Delete systems
+			for (auto& system : m_Systems)
+				delete system;
+
+			m_Systems.clear();
 		}
 
 		void SystemManager::OnStart()
@@ -37,6 +40,12 @@ namespace ThunderEngine {
 			for (auto& system : m_Systems)
 				system->OnDraw();
 		}
+
+		void SystemManager::AddSystem(System* system)
+		{
+			m_Systems.push_back(system);
+		}
+
 
 		void SystemManager::InitSystems()
 		{

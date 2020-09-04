@@ -1,6 +1,6 @@
 #pragma once
-
 #include <Graphics/Vertice.h>
+#include <Graphics/OrthographicCamera.h>
 
 namespace ThunderEngine {
 	namespace Component {
@@ -36,6 +36,14 @@ namespace ThunderEngine {
 				dlc.TextureId = 0.f;
 				ulc.TextureId = 0.f;
 			}
+		};
+
+		struct OrthographicCameraComponent {
+			bool IsPrimary = true;
+			Graphics::OrthographicCamera Camera = Graphics::OrthographicCamera();
+
+			OrthographicCameraComponent() = default;
+			OrthographicCameraComponent(const OrthographicCameraComponent&) = default;
 		};
 	}
 }
