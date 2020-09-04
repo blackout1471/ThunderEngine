@@ -1,7 +1,7 @@
 #pragma once
 
 namespace ThunderEngine {
-	namespace Systems {
+	namespace System {
 		class System {
 		public:
 			virtual void OnStart() = 0;

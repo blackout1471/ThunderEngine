@@ -3,13 +3,13 @@
 #include <Graphics/Shaders/OpenGlShaders.h>
 #include <entt.hpp>
 #include <Entity/Components.h>
+#include <Entity/SceneManager.h>
 
 namespace ThunderEngine {
-	namespace Systems {
+	namespace System {
 		
-		Renderer2D::Renderer2D(Entity::Scene* scene)
+		Renderer2D::Renderer2D()
 		{
-			m_CurrentScene = scene;
 		}
 
 		Renderer2D::~Renderer2D()
@@ -52,6 +52,7 @@ namespace ThunderEngine {
 
 		void Renderer2D::OnUpdate()
 		{
+			m_CurrentScene = Entity::SceneManager::GetCurrentScene();
 		}
 
 		void Renderer2D::OnDraw()

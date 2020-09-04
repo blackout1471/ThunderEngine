@@ -8,7 +8,7 @@
 #define RENDERER2D_MAX_ENTITIES = 5000; // The max amount of entities in the renderer
 
 namespace ThunderEngine {
-	namespace Systems {
+	namespace System {
 		class Renderer2D : public System
 		{
 		private:
@@ -23,7 +23,7 @@ namespace ThunderEngine {
 
 			int m_CurrentIndicieCount;
 		public:
-			Renderer2D(Entity::Scene* scene);
+			Renderer2D();
 			~Renderer2D();
 		public:
 			virtual void OnStart() override;

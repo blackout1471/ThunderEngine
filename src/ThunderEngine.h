@@ -6,3 +6,8 @@
 #include <Application/KeyCode.h>
 #include <Application/MouseButton.h>
 #include <Application/Input.h>
+
+#include <Entity/SceneManager.h>
+#include <Entity/Entity.h>
+
+#include <Entity/Components.h>

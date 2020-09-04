@@ -3,6 +3,7 @@
 #include <Graphics/RenderApi.h>
 #include "Core/Core.h"
 #include "Time.h"
+#include <Systems/SystemManager.h>
 
 #include <Utils/FileUtils.h>
 
@@ -33,6 +34,12 @@ namespace ThunderEngine {
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
         TE_ASSERT(Graphics::RenderApi::GetApi()->Init(), "Could not create initialise renderer context", {});
 
+        OnStart();
+
+        // Init systems
+        System::SystemManager::InitSystems();
+        System::SystemManager::GetSystems()->OnStart();
+
         float t1, t2;
         t1 = t2 = Time::GetCurrentProcessTime();
 
@@ -45,6 +52,8 @@ namespace ThunderEngine {
             OnUpdate();
 
             // Update systems
+            System::SystemManager::GetSystems()->OnUpdate();
+            System::SystemManager::GetSystems()->OnDraw();
 
             // Swap to the buffer being written to
             m_WindowInstance->SwapBuffers();

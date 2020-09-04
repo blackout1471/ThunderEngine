@@ -111,7 +111,8 @@ project "Sandbox2D"
 		"../vendor",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb}"
+		"%{IncludeDir.stb}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
