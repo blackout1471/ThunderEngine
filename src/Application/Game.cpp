@@ -34,6 +34,8 @@ namespace ThunderEngine {
         Graphics::RenderApi::CreateApi(Graphics::RenderVendor::OpenGL);
         TE_ASSERT(Graphics::RenderApi::GetApi()->Init(), "Could not create initialise renderer context", {});
 
+        m_WindowInstance->SetVSync(true);
+
         OnStart();
 
         // Init systems

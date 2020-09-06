@@ -112,25 +112,26 @@ namespace ThunderEngine {
 
 		void Renderer2D::SubmitQuadComponent(Component::Test2DQuadComponent& testComponent, Component::TransformComponent& transComp)
 		{
-			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.urc.Vertice, 1.f);
+			glm::mat4 modelMat = transComp.Transform.GetModel();
+			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.urc.Vertice, 1.f);
 			m_BufferPointer->Color = testComponent.urc.Color;
 			m_BufferPointer->TextureCoordinates = testComponent.urc.TextureCoordinates;
 			m_BufferPointer->TextureId = testComponent.urc.TextureId;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.drc.Vertice, 1.f);
+			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.drc.Vertice, 1.f);
 			m_BufferPointer->Color = testComponent.drc.Color;
 			m_BufferPointer->TextureCoordinates = testComponent.drc.TextureCoordinates;
 			m_BufferPointer->TextureId = testComponent.drc.TextureId;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.dlc.Vertice, 1.f);
+			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.dlc.Vertice, 1.f);
 			m_BufferPointer->Color = testComponent.dlc.Color;
 			m_BufferPointer->TextureCoordinates = testComponent.dlc.TextureCoordinates;
 			m_BufferPointer->TextureId = testComponent.dlc.TextureId;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.ulc.Vertice, 1.f);
+			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.ulc.Vertice, 1.f);
 			m_BufferPointer->Color = testComponent.ulc.Color;
 			m_BufferPointer->TextureCoordinates = testComponent.ulc.TextureCoordinates;
 			m_BufferPointer->TextureId = testComponent.ulc.TextureId;

@@ -18,7 +18,7 @@ namespace ThunderEngine {
 			}
 		}
 
-		GameWindow::GameWindow() : m_Specifications(800, 600, "Thunder Engine", false), m_Window(nullptr) {
+		GameWindow::GameWindow() : m_Specifications(800, 600, "Thunder Engine", true), m_Window(nullptr) {
 			InitializeLibrary();
 		}
 
@@ -28,6 +28,8 @@ namespace ThunderEngine {
 			m_Window = glfwCreateWindow(m_Specifications.Width, m_Specifications.Height, m_Specifications.Title, monitor, share);
 			if (!m_Window)
 				return false;
+
+			SetVSync(specifications.VSync);
 
 			glfwSetWindowUserPointer(m_Window, &m_Specifications);
 			SetEvents();

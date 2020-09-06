@@ -19,6 +19,8 @@ namespace ThunderEngine {
 		Entity Scene::CreateEntity() {
 			Entity entity = { m_Registry.create(), this };
 			entity.AddComponent<Component::TransformComponent>();
+			auto& tag = entity.AddComponent<Component::TagComponent>();
+			tag.Tag = "Entity";
 			return entity;
 		}
 

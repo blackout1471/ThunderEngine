@@ -1,6 +1,7 @@
 #pragma once
 #include <Graphics/Vertice.h>
 #include <Graphics/OrthographicCamera.h>
+#include "Transform.h"
 
 namespace ThunderEngine {
 	namespace Component {
@@ -38,16 +39,13 @@ namespace ThunderEngine {
 			}
 		};
 
+		// TODO: Make constructor based position
 		struct TransformComponent {
 
-			glm::mat4 Transform{ 1.0f };
+			Entity::Transform Transform = Entity::Transform();
 
 			TransformComponent() = default;
 			TransformComponent(const TransformComponent&) = default;
-			TransformComponent(const glm::mat4& transform) : Transform(transform) {}
-
-			operator glm::mat4& () { return Transform; }
-			operator const glm::mat4& () const { return Transform; }
 		};
 
 		struct OrthographicCameraComponent {
@@ -56,6 +54,14 @@ namespace ThunderEngine {
 
 			OrthographicCameraComponent() = default;
 			OrthographicCameraComponent(const OrthographicCameraComponent&) = default;
+		};
+
+		struct TagComponent {
+			std::string Tag;
+
+			TagComponent() = default;
+			TagComponent(const TagComponent&) = default;
+			TagComponent(const std::string& tag) : Tag(tag) {};
 		};
 	}
 }

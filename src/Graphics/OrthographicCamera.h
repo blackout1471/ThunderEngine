@@ -13,8 +13,8 @@ namespace ThunderEngine {
 		private:
 			void Recalculate();
 		private:
-			float m_Width = 1280;
-			float m_Height = 720;
+			float m_Width = 800;
+			float m_Height = 600;
 			float m_Near = -1.f;
 			float m_Far = 1.f;
 		};
