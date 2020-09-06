@@ -16,9 +16,11 @@ namespace ThunderEngine {
 				"out vec2 outUv;\n"
 				"out float outTextureId;\n"
 
+				"uniform mat4 orthoView;\n"
+
 				"void main()\n"
 				"{\n"
-				"	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+				"	gl_Position = orthoView * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 				"	outColor = aColor;\n"
 				"	outUv = aUv;\n"
 				"	outTextureId = aTextureId;\n"

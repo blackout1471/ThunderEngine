@@ -15,6 +15,8 @@ namespace ThunderEngine {
 		{
 			m_Width = width;
 			m_Height = height;
+
+			this->Recalculate();
 		}
 
 		void OrthographicCamera::Recalculate()

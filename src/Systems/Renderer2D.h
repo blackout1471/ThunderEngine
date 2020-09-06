@@ -33,7 +33,8 @@ namespace ThunderEngine {
 		private:
 			void StartSubmit();
 			void EndSubmit();
-			void SubmitQuadComponent(Component::Test2DQuadComponent& component);
+			void SubmitQuadComponent(Component::Test2DQuadComponent& testComponent, Component::TransformComponent& transComp);
+			void UploadCameraMatrix();
 
 		};
 	}

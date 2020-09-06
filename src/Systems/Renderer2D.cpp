@@ -60,12 +60,13 @@ namespace ThunderEngine {
 			m_CurrentIndicieCount = 0;
 
 			StartSubmit();
-			auto renderables = m_CurrentScene->GetRegistry().view<Component::Test2DQuadComponent>();
+			auto renderables = m_CurrentScene->GetRegistry().view<Component::Test2DQuadComponent, Component::TransformComponent>();
 			
 			for (auto entity : renderables)
 			{
-				auto& component = renderables.get<Component::Test2DQuadComponent>(entity);
-				SubmitQuadComponent(component);
+				auto& testComponent = renderables.get<Component::Test2DQuadComponent>(entity);
+				auto& transformComponent = renderables.get<Component::TransformComponent>(entity);
+				SubmitQuadComponent(testComponent, transformComponent);
 			}
 
 
@@ -82,10 +83,21 @@ namespace ThunderEngine {
 			// Bind shader and send data through, to draw
 			m_Shader->Bind();
 			m_Shader->SetInt("textures[0]", 0);
+			this->UploadCameraMatrix();
 
 			// Bind index buffer and draw
 			m_Ibo->Bind();
 			m_Vao->DrawIndicies(Graphics::RenderPrimitives::Triangles, m_CurrentIndicieCount);
+		}
+
+		void Renderer2D::UploadCameraMatrix()
+		{
+			auto cameraView = m_CurrentScene->GetRegistry().view<Component::OrthographicCameraComponent>();
+			auto firstEnt = cameraView.front();
+
+			auto& cameraComp = cameraView.get<Component::OrthographicCameraComponent>(firstEnt);
+
+			m_Shader->SetMat4("orthoView", cameraComp.Camera.GetProjection());
 		}
 
 		void Renderer2D::StartSubmit()
@@ -98,33 +110,34 @@ namespace ThunderEngine {
 			m_Vbo->ReleasePointer(); // release the buffer pointer
 		}
 
-		void Renderer2D::SubmitQuadComponent(Component::Test2DQuadComponent& component)
+		void Renderer2D::SubmitQuadComponent(Component::Test2DQuadComponent& testComponent, Component::TransformComponent& transComp)
 		{
-			m_BufferPointer->Vertice = component.urc.Vertice;
-			m_BufferPointer->Color = component.urc.Color;
-			m_BufferPointer->TextureCoordinates = component.urc.TextureCoordinates;
-			m_BufferPointer->TextureId = component.urc.TextureId;
+			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.urc.Vertice, 1.f);
+			m_BufferPointer->Color = testComponent.urc.Color;
+			m_BufferPointer->TextureCoordinates = testComponent.urc.TextureCoordinates;
+			m_BufferPointer->TextureId = testComponent.urc.TextureId;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = component.drc.Vertice;
-			m_BufferPointer->Color = component.drc.Color;
-			m_BufferPointer->TextureCoordinates = component.drc.TextureCoordinates;
-			m_BufferPointer->TextureId = component.drc.TextureId;
+			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.drc.Vertice, 1.f);
+			m_BufferPointer->Color = testComponent.drc.Color;
+			m_BufferPointer->TextureCoordinates = testComponent.drc.TextureCoordinates;
+			m_BufferPointer->TextureId = testComponent.drc.TextureId;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = component.dlc.Vertice;
-			m_BufferPointer->Color = component.dlc.Color;
-			m_BufferPointer->TextureCoordinates = component.dlc.TextureCoordinates;
-			m_BufferPointer->TextureId = component.dlc.TextureId;
+			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.dlc.Vertice, 1.f);
+			m_BufferPointer->Color = testComponent.dlc.Color;
+			m_BufferPointer->TextureCoordinates = testComponent.dlc.TextureCoordinates;
+			m_BufferPointer->TextureId = testComponent.dlc.TextureId;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = component.ulc.Vertice;
-			m_BufferPointer->Color = component.ulc.Color;
-			m_BufferPointer->TextureCoordinates = component.ulc.TextureCoordinates;
-			m_BufferPointer->TextureId = component.ulc.TextureId;
+			m_BufferPointer->Vertice = transComp.Transform * glm::vec4(testComponent.ulc.Vertice, 1.f);
+			m_BufferPointer->Color = testComponent.ulc.Color;
+			m_BufferPointer->TextureCoordinates = testComponent.ulc.TextureCoordinates;
+			m_BufferPointer->TextureId = testComponent.ulc.TextureId;
 			m_BufferPointer++;
 
 			m_CurrentIndicieCount += 6;
 		}
+		
 	}
 }
