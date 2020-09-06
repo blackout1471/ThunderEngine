@@ -13,19 +13,19 @@ class FirstScene : public ThunderEngine::Entity::Scene {
         camera.AddComponent<ThunderEngine::Component::OrthographicCameraComponent>();
 
         c = CreateEntity();
-        c.AddComponent<ThunderEngine::Component::Test2DQuadComponent>(50, glm::vec4(1.f, 1.f, 1.f, 1.f));
+        auto& test = c.AddComponent<ThunderEngine::Component::QuadComponent>(50, glm::vec4(1.f, 1.f, 1.f, 1.f));
 
         auto& ct = c.GetComponent<ThunderEngine::Component::TransformComponent>();
         ct.Transform.SetPosition(glm::vec3(200.f, 200.f, 1.f));
 
         c2 = CreateEntity();
-        c2.AddComponent<ThunderEngine::Component::Test2DQuadComponent>(50, glm::vec4(1.f, 0.f, 0.f, 1.f));
+        c2.AddComponent<ThunderEngine::Component::QuadComponent>(50, glm::vec4(1.f, 0.f, 0.f, 1.f));
 
         auto& ct2 = c2.GetComponent<ThunderEngine::Component::TransformComponent>();
         ct2.Transform.SetPosition(glm::vec3(350.f, 200.f, 1.f));
 
         c3 = CreateEntity();
-        c3.AddComponent<ThunderEngine::Component::Test2DQuadComponent>(50, glm::vec4(0.f, 1.f, 0.f, 1.f));
+        c3.AddComponent<ThunderEngine::Component::QuadComponent>(50, glm::vec4(0.f, 1.f, 0.f, 1.f));
 
         auto& ct3 = c3.GetComponent<ThunderEngine::Component::TransformComponent>();
         ct3.Transform.SetPosition(glm::vec3(500.f, 200.f, 1.f));

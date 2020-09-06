@@ -60,11 +60,11 @@ namespace ThunderEngine {
 			m_CurrentIndicieCount = 0;
 
 			StartSubmit();
-			auto renderables = m_CurrentScene->GetRegistry().view<Component::Test2DQuadComponent, Component::TransformComponent>();
+			auto renderables = m_CurrentScene->GetRegistry().view<Component::QuadComponent, Component::TransformComponent>();
 			
 			for (auto entity : renderables)
 			{
-				auto& testComponent = renderables.get<Component::Test2DQuadComponent>(entity);
+				auto& testComponent = renderables.get<Component::QuadComponent>(entity);
 				auto& transformComponent = renderables.get<Component::TransformComponent>(entity);
 				SubmitQuadComponent(testComponent, transformComponent);
 			}
@@ -110,31 +110,31 @@ namespace ThunderEngine {
 			m_Vbo->ReleasePointer(); // release the buffer pointer
 		}
 
-		void Renderer2D::SubmitQuadComponent(Component::Test2DQuadComponent& testComponent, Component::TransformComponent& transComp)
+		void Renderer2D::SubmitQuadComponent(Component::QuadComponent& quadComp, Component::TransformComponent& transComp)
 		{
 			glm::mat4 modelMat = transComp.Transform.GetModel();
-			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.urc.Vertice, 1.f);
-			m_BufferPointer->Color = testComponent.urc.Color;
-			m_BufferPointer->TextureCoordinates = testComponent.urc.TextureCoordinates;
-			m_BufferPointer->TextureId = testComponent.urc.TextureId;
+			m_BufferPointer->Vertice = modelMat * glm::vec4(quadComp.Width, quadComp.Height, -1.f, 1.f);
+			m_BufferPointer->Color = quadComp.Color;
+			m_BufferPointer->TextureCoordinates = glm::vec2(0.f, 0.f);
+			m_BufferPointer->TextureId = 0.f;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.drc.Vertice, 1.f);
-			m_BufferPointer->Color = testComponent.drc.Color;
-			m_BufferPointer->TextureCoordinates = testComponent.drc.TextureCoordinates;
-			m_BufferPointer->TextureId = testComponent.drc.TextureId;
+			m_BufferPointer->Vertice = modelMat * glm::vec4(quadComp.Width, -quadComp.Height, -1.f, 1.f);
+			m_BufferPointer->Color = quadComp.Color;
+			m_BufferPointer->TextureCoordinates = glm::vec2(1.f, 0.f);
+			m_BufferPointer->TextureId = 0.f;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.dlc.Vertice, 1.f);
-			m_BufferPointer->Color = testComponent.dlc.Color;
-			m_BufferPointer->TextureCoordinates = testComponent.dlc.TextureCoordinates;
-			m_BufferPointer->TextureId = testComponent.dlc.TextureId;
+			m_BufferPointer->Vertice = modelMat * glm::vec4(-quadComp.Width, -quadComp.Height, -1.f, 1.f);
+			m_BufferPointer->Color = quadComp.Color;
+			m_BufferPointer->TextureCoordinates = glm::vec2(1.f, 1.f);
+			m_BufferPointer->TextureId = 0.f;
 			m_BufferPointer++;
 
-			m_BufferPointer->Vertice = modelMat * glm::vec4(testComponent.ulc.Vertice, 1.f);
-			m_BufferPointer->Color = testComponent.ulc.Color;
-			m_BufferPointer->TextureCoordinates = testComponent.ulc.TextureCoordinates;
-			m_BufferPointer->TextureId = testComponent.ulc.TextureId;
+			m_BufferPointer->Vertice = modelMat * glm::vec4(-quadComp.Width, quadComp.Height, -1.f, 1.f);
+			m_BufferPointer->Color = quadComp.Color;
+			m_BufferPointer->TextureCoordinates = glm::vec2(0.f, 1.f);
+			m_BufferPointer->TextureId = 0.f;
 			m_BufferPointer++;
 
 			m_CurrentIndicieCount += 6;
