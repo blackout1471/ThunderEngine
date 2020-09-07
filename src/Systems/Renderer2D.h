@@ -5,6 +5,8 @@
 #include <Entity/Components.h>
 #include <Entity/Scene.h>
 
+#include <map>
+
 #define RENDERER2D_MAX_ENTITIES = 5000; // The max amount of entities in the renderer
 
 namespace ThunderEngine {
@@ -21,6 +23,9 @@ namespace ThunderEngine {
 
 			Entity::Scene* m_CurrentScene;
 
+			// TODO: Let resourcemanager manage textures
+			std::map<std::string, Graphics::Texture*> m_Textures;
+
 			int m_CurrentIndicieCount;
 		public:
 			Renderer2D();
@@ -33,8 +38,14 @@ namespace ThunderEngine {
 		private:
 			void StartSubmit();
 			void EndSubmit();
-			void SubmitQuadComponent(Component::QuadComponent& quadComp, Component::TransformComponent& transComp);
+
+			void SubmitQuadComponents(Component::QuadComponent& quadComp, Component::TransformComponent& transComp);
+			void SubmitSpriteComponents(Component::SpriteComponent& spriteComp, Component::TransformComponent& transComp);
+
 			void UploadCameraMatrix();
+			void SetTexturesForShader();
+
+			void DrawIndicies();
 
 		};
 	}

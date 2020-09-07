@@ -4,6 +4,7 @@
 #include "Core/Core.h"
 #include "Time.h"
 #include <Systems/SystemManager.h>
+#include <Entity/SceneManager.h>
 
 #include <Utils/FileUtils.h>
 
@@ -52,6 +53,7 @@ namespace ThunderEngine {
             Time::SetDeltaTime(t2 - t1);
             t1 = t2;
             OnUpdate();
+            Entity::SceneManager::GetScenes()->GetCurrentScene()->OnUpdate();
 
             // Update systems
             System::SystemManager::GetSystems()->OnUpdate();

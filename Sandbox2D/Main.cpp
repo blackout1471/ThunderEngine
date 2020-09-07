@@ -29,6 +29,9 @@ class FirstScene : public ThunderEngine::Entity::Scene {
 
         auto& ct3 = c3.GetComponent<ThunderEngine::Component::TransformComponent>();
         ct3.Transform.SetPosition(glm::vec3(500.f, 200.f, 1.f));
+
+        ThunderEngine::Entity::Entity c4 = CreateEntity();
+        c4.AddComponent<ThunderEngine::Component::SpriteComponent>("C:\\Users\\Emil\\Desktop\\duck.png", 100);
     }
 
     virtual void OnUpdate() override
@@ -71,11 +74,7 @@ class FirstScene : public ThunderEngine::Entity::Scene {
             ct3.Transform.Scale(glm::vec3(-scaleSpeed, -scaleSpeed, 0.f) * ThunderEngine::Time::GetDeltaTime());
         }
         else if (time > 10.f)
-            time = 0;
-
-        
-        
-        
+            time = 0; 
     }
 };
 
@@ -88,7 +87,7 @@ class UbberGame : public ThunderEngine::Game {
 
     virtual void OnUpdate() override
     {
-        ThunderEngine::Entity::SceneManager::GetScenes()->GetCurrentScene()->OnUpdate();
+        
     }
 };
 
